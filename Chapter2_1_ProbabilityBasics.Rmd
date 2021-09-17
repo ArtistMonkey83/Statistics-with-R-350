@@ -1,0 +1,406 @@
+---
+title: "Chapter 2-Probability"
+output:
+  #word_document: default
+  html_document: default
+---
+
+
+#Chapter 2 Probability
+
+## Probability Basics
+
+## Fill in the defintions for the following words:
+
+*Experiment* 
+An experiment is a process that produces an outcome.
+
+*Outcome* 
+Is something that we observe from an experiment.
+
+*Sample space*  
+Is the set of all possible outcomes for an experiment
+
+*Event* 
+A subset of the smaple space
+
+*Trial*
+An interation of the experiment
+#### You try it:
+After reading through examples 2.2, 2.3, and 2.4. Do the following problems. For each problem, identify the sample space and the events described.
+
+1. Observe eye color of a group of students.
+
+  Sample space: S= {Brown,Hazel,Blue,Green}
+  Event student does not have blue eyes: a={Brown,Hazel,Green}
+ 
+2. Number of credits a student can take:
+
+  Sample space: S={0,1,2,3,4,...,22}
+  Event student takes less than 9 credits: a={0,1,2,3,4,5,6,7,8}
+  
+3. Toss a coin and roll a die.
+
+  Sample space:S={1heads,2heads,...6heads,1tails,2tails,...,6tails}
+  Event that you get tails: a={1tails,2,tails,...,6tails}
+  
+4. A soccer team is in the playoffs. The team will play three games and will either win or lose each game (assume ties are not allowed).
+
+  Sample Space: S={www,wwl,wll,wlw,lll,lww,lwl,llw}
+  Event that at least 2 games are won: a={www,wwl,wlw,lww}
+
+**Definition 2.5**
+
+Let *A* and *B* be events in a sample space *S*. Complete the following definitions.
+
+1. $A\cap B$: A intersect B means all outcomes in both A and B
+
+2. $A\cup B$: A union B means all outcomes in A, B or Both!
+
+3. $A\setminus  B$: A minus B means outcomes in A that are NOT in B!
+
+4. The *completment* of $A$ is $\bar{A}=S\setminus A$ or $A^{c}$. So, $A^{c}$ is the set of outcomes not in A.
+
+5. $A$ and $B$ are disjoint if and only if $A\cap B$ is equal to the empty set. They don't have any values in common.  
+
+6. We say that $A$ is a subset of $B$, written $A\subset B$ if all outcomes of A are also in B.
+
+
+#### Draw a picture
+The most common kind of picture to make to describe sample spaces and events within sample spaces is a *Venn Diagram*. A Venn diagram uses overlapping circles or other shapes to illustrate the logical relationships between two or more sets of items. 
+```{r}
+#install.packages("VennDiagram") #intalling package to draw Venn Diagram
+library("VennDiagram")
+
+grid.newpage()#move to a new plotting page
+#draw.triple.venn(area1 = 5,area2 =4, area3 = 10, n12 =2c('goat','cat'), n23=4 c('dog','fish','goat','cat'),n13=c('goat','cat'),n123=c('goat','cat')) #create three circles in a Venn Diagram
+
+
+```
+
+#### Example
+
+Say 3 roommates are deciding on a pet. They use a Venn Diagram to determine which pet might be the best pick for them.
+
+Sidney prefers: cat, bird, hamster,spider, goat.
+Ralph prefers: dog, cat, fish,goat.
+Gilbert prefers: horse, cat, dog, turtle snake,goat,fish
+
+Create a Venn diagram that represents this example.
+
+<https://media.csuchico.edu/media/Math+350+Venn+Diagram/1_qo0o82gt>
+
+It is said that two events $A$ and $B$ are **disjoint**, or **mutually exclusive**, if $A$ and $B$ have no outcomes in common.  $A$ and $B$ are disjoint if and only if $A\cap B=\emptyset
+
+A Venn diagram of two disjoint events, $A$ and $B$ appears below:
+
+<https://media.csuchico.edu/media/Math+350+Chapter+2.1+Disjoint/1_f1wqeu61>
+
+*You try it*: A single card is drawn from a poker deck. Let $A$ be the event that an ace is selected: A={ace of hears, ace of diamonds, ace of clubs, ace of spades}. Let $B$ be the event that a heart is drawn. Then $B$={2 of hearts, 3 of hearts, ..., ace of hearts}.
+
+Then $A\cup B$=
+
+and $A\cap B$=
+
+
+*Set operations in R*:
+We can also rely on R to perform union and intersection calculations. 
+
+#### Example:
+
+Suppose that each of the twelve letters in the word: TESSELLATION is written on a chip. Define the events F, R, and C as follows:
+
+F: letters in the first half of the alphabet
+R: letters that are repeated
+V: letters that are vowels
+
+Which chips make up the following events?
+
+1. $F\cap R\cap V$
+2. $F^{c}\cap R \cap V^{c}$
+3. $F\cap R^{c} \cap V$
+
+<https://media.csuchico.edu/media/Math+350+Chapter+2.1+TESSELLATION/1_6j6uyldy>
+
+The functions `union` and `intersect` and `setdiff` can be used in R to compute intersections and unions. Each function can only take into consideration 2 vectors. 
+
+```{r}
+sample_space<-c("t","e","s","l","a","i","o","n")
+F_set<-c("e","a","l","i")
+R_set<-c("t","e","s","l")
+V_set<-c("e","a","o","i")
+
+##F intersect R intersect V
+f_r<-intersect(F_set,R_set)   #f intersect r
+f_r
+
+(f_r_v<-intersect(f_r,V_set))  #f intersect r intersect v
+
+
+## F^c intersect R intersect V^c
+(F_set_c<-setdiff(sample_space,F_set)) # f complement
+(V_set_c<-setdiff(sample_space,V_set))  #v complement (remove v from the sample space/ answer set)
+(f_c_r<-intersect(F_set_c,R_set))  #f complement intersect r
+(f_c_r_v_c<-intersect(f_c_r,V_set_c)) # f complement intersect r intersect v complement
+
+
+
+##F intersect R complement intersect V
+
+(R_set_c<-setdiff(sample_space,R_set)) #r complement 
+(f_rc<-intersect(F_set,R_set_c))  #f intersect r complement
+(f_rc_V<-intersect(f_rc,V_set))  # f intersect r complement intersect v 
+
+
+```
+
+#### You try it:
+
+Suppose that one card is to be selected from a deck of 20 cards that contains 10 red cards numbered from 1 to 10 and 10 blue cards numbered from 1 to 10. Let *A* be the event that a card with an even number is selected, let *B* be the event that a blue card is selected, and let *C* be the event that a card with a number less than 5 is selected. Describe the sample space and each of the following:
+
+1. $A\cap B\cap C$.
+2. $B\cup C^{c}$.
+3. $A\cap (B\cup C)$.
+4. $A^{c}\cap B^{c}\cap C^{c}$
+
+```{r}
+Sample_space<-c("1R","2R","3R","4R","5R","6R","7R","8R","9R","10R","1B","2B","3B","4B","5B","6B","7B","8B","9B","10B")
+
+(A<-Sample_space[seq(2,20,2)]) #square brackets index
+(B<-Sample_space[11:20])
+(C<-Sample_space[c(1:4,11:14)])
+
+##A intersect B intersect C
+
+a_b <- intersect(A,B)
+a_b
+
+a_b_c <- intersect(a_b, C)
+a_b_c
+
+(a_b_c <- intersect(A, intersect(B,C))) #nested version
+
+
+##B union C^c
+
+(c_Compl <-setdiff(Sample_space,C))
+b_C <- union(B,c_Compl)
+
+b_C
+
+##A intersect (b union c)
+
+a_b_c<-intersect(A,union(B,C))
+a_b_c
+
+
+##A^c intersect B^c intersect C^c
+(ac<-setdiff(Sample_space,A))
+(bc<-setdiff(Sample_space,B))
+(cc<-setdiff(Sample_space,C))
+(a_b_c <- intersect(ac,bc))
+(a_b_cc<- intersect(a_b_c, cc))
+
+(r<-intersect(ac,intersect(bc,cc))) #my nested version for result
+
+```
+
+*Definition 2.7*
+
+Let *S* be a sample space. A valid *probability* of events *E* is a number *P(E)* between 0 and 1 (inclusive), so $0\leq P(E)\leq 1, that satisfies the following *probability axioms*:
+
+1. The probability of the sample space is 1
+
+2. The probability of the empty set is 0.
+
+3. Probablities are monotonic: $A\subset B$, then $P(A)\leq P(B)$
+
+4. Probabilities are countably additive. If $A_{1}$, $A_{2}$,...,$A_{n}$ are disjoint then 
+\[
+P(A_{1}\cup A_{2}\cdots\cup A_{n})=\sum P(A_{n})
+\]
+
+**Theorem 2.1**
+
+Let $A$ and $B$ be events in the sample space $S$.
+1. If $A$ and $B$ are disjoint then $P(A\cup B)=P(A)+P(B)$.
+2. $P(A)=1-P(A^{c})$.
+3. $P(A\B)=P(A)-P(A\cap B)$
+4. P(A\cup B)=P(A)+P(B)-P(A\cap B)
+
+Here is a video that covers a few of the proofs for the above Theorem.
+
+<https://media.csuchico.edu/media/Math+350+Chapter+2.1+Probability+Proofs/1_3ep43tp6>
+
+<https://media.csuchico.edu/media/Chapter+2.1+Theorem+2.1+Part+4/1_10ahzaf2>
+
+
+### Example 2.8
+Suppose that two six-sided dice are rolled and the numbers appearing on the dice are observed. 
+
+
+The sample space is given by:
+```{r}
+dice<-1:6
+##Creates the sample space of the 36 outcomes
+sample_space<-expand.grid(dice,dice)
+View(sample_space)
+```
+
+a. The probability of each out come is:
+
+```{r}
+number_outcomes<-1/nrow(sample_space)
+nrow(sample_space) #number of permutations?
+number_outcomes
+
+```
+
+b.The event "The sum of the dice is 6" is represented by
+```{r}
+sum_6<-sample_space[sample_space[,1]+sample_space[,2]==6,]#we are only interested in the rows! We could also us the sum function pulling out the rows where var1 and var2 are added to 6. [adding two numbers]== 6, in any column
+
+```
+
+c. The probability that the sum of two dice is 6 is given by
+
+```{r}
+outcome_six<-length(sum_6[,1])/nrow(sample_space)#first column of six
+
+number_outcomes<-nrow(sample_space)
+
+nrow(sum_6)/number_outcomes #in class answer
+```
+
+d. Let $F$ be the event "At least one of the dice is a 2." This event is represented by
+```{r}
+
+two_present<-sample_space[sample_space[,1]==2 | sample_space[,2]==2,] #get subset first then start with the row index
+
+two_present
+```
+
+and probability is
+
+```{r}
+nrow(two_present)/nrow(sample_space)
+
+```
+
+
+#### Example 
+Show that $P\left(A\bigcap B\right)\geq1-P(A^{C})-P(B^{C})$ for any two events $A$ and $B$ defined on a sample space $S$.
+
+<https://media.csuchico.edu/media/Math+350+Chapter+2.1+A+Intersect+B+proof/1_ejo5u1py>
+
+
+#### You try it
+If 50 percent of the families in a certain city subscribe to the morning newspaper, 65 percent of the families subscribe to the afternoon newspaper, and 85 percent of the families subscribe to at least one of the two newspapers, what percentage of the families subscribe to both newspapers?
+
+```{r}
+subscriptions <-c('1a','1m','2am') #creates the sample space of families subscribing to afternoon paper,morning paper, or both papers
+
+
+
+
+```
+
+
+### End of Chapter problems:
+
+1. When rolling two dice, what is the probability that one of the die is twice the other?
+
+```{r}
+dice<-1:6
+
+sample_space<-expand.grid(dice,dice)
+
+(dice1<-sample_space[,1])
+(dice2<-sample_space[,2])
+
+(results<-(dice1 == 2*dice2 | dice2 ==2*dice1))
+
+mean(results)
+```
+
+
+2. Consider an experiment where you roll two dice, and subtract the smaller value from the larger value (getting 0 in case of a tie)
+
+a. What is the probability of getting 0?
+```{r}
+sample_space<-expand.grid(dice,dice)
+
+
+
+```
+
+
+b. What is the probability of getting 4? 
+
+```{r}
+
+
+```
+
+
+3. One hundred voters were asked their opinions of two candidates, $A$ and $B$, running for mayor. Their responses to three questions are: 65 said they like candidate $A$, 55 said they like $B$, and 25 said that they like both. 
+
+a. Draw a Venn diagram that depicts the above situation.
+
+
+b. What is the probability that someone likes neither?
+
+```{r}
+
+
+```
+
+c. What is the probability that someone likes exactly one?
+
+```{r}
+
+
+```
+
+
+d. What is the probability that someone likes at least one?
+
+```{r}
+
+
+```
+
+
+e. What is the probability that someone likes at most one?
+
+```{r}
+
+
+```
+
+
+4. Consider two events, $A$ and $B$, with $P(A)=0.4$ and $P(B)=0.7$. Determine the maximum and minimun values for $P(A\cap B)$ and the conditions under which of these values is attained.
+
+
+
+5. Find $A\cap B\cap C$ if $A={0\leq x\leq 4}$, $B={2\leq x\leq 6}$, and $C={x=0,1,2,....}$.
+
+
+
+6. Let $A$ and $B$ be any two events defines on $S$. Suppose that $P(A)=0.4$, $P(B)=0.5$, and $P(A\cap B)=0.1$. What is the probability that $A$ or $B$ but not both occur?
+
+
+
+7. Let $A$ and $B$ be two events defined on $S$. If the probabity that at least one of them occurs is 0.3 and the probability that $A$ occurs but $B$ doesn't not occur is 0.1, what is $P(B)$?
+
+
+
+8. Events $A$ and $B$ are defined on a sample space $S$ such that $P((A\cup B)^{c})=0.5 and $P(A\cap B)=0.2. What is the probability that either $A$ or $B$ but not both will occur?
+
+
+
+
+
+
+
+
