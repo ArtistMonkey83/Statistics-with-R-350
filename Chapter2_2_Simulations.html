@@ -182,15 +182,15 @@ pre code {
 
 x&lt;-1:10
 (sample(x,2)) #take a sample of size 2 from vector x</code></pre>
-<pre><code>## [1] 3 6</code></pre>
+<pre><code>## [1] 9 7</code></pre>
 <pre class="r"><code> (sample(x,20,replace=TRUE)) #vector size you want to sample and true for replace, the default is false</code></pre>
-<pre><code>##  [1]  8  1  1  7  7  6  9  2  2  1  7  7  2  5  5  7 10  2 10  1</code></pre>
+<pre><code>##  [1]  9  5  4  6  4  7  8  2 10  1  1  8  8  7 10  9  1 10  2  6</code></pre>
 <pre class="r"><code>##Sample three months from the list of months
 
 months&lt;-c(&quot;Jan&quot;,&quot;Feb&quot;,&quot;Mar&quot;,&quot;Apr&quot;,&quot;May&quot;,&quot;Jun&quot;,&quot;Jul&quot;,&quot;Aug&quot;,&quot;Sept&quot;,&quot;Oct&quot;,&quot;Nov&quot;,&quot;Dec&quot;)
 
 sample(months,3)</code></pre>
-<pre><code>## [1] &quot;Nov&quot; &quot;Jan&quot; &quot;May&quot;</code></pre>
+<pre><code>## [1] &quot;Jan&quot; &quot;Dec&quot; &quot;Apr&quot;</code></pre>
 </div>
 <div id="example-2.9" class="section level4">
 <h4>Example 2.9</h4>
@@ -200,8 +200,8 @@ sample(months,3)</code></pre>
 <pre class="r"><code>bloodtypes&lt;-c(&quot;O&quot;,&quot;A&quot;,&quot;B&quot;,&quot;AB&quot;)
 prob_bloodtypes&lt;-c(0.45,.4,.11,.04)
 sample(bloodtypes,30,prob=prob_bloodtypes,replace=TRUE) # (vector with data to sample, times to samples, set the prob attribute, and replacement is required so the option is a possibility on the next trial) #set.seed allows us to control outcomes, in class we didn't get the same sample as each other if you want to use it later you must save it to variable.</code></pre>
-<pre><code>##  [1] &quot;A&quot;  &quot;B&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot; 
-## [16] &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;AB&quot;</code></pre>
+<pre><code>##  [1] &quot;O&quot; &quot;A&quot; &quot;A&quot; &quot;O&quot; &quot;A&quot; &quot;B&quot; &quot;O&quot; &quot;O&quot; &quot;O&quot; &quot;B&quot; &quot;A&quot; &quot;A&quot; &quot;A&quot; &quot;O&quot; &quot;A&quot; &quot;O&quot; &quot;B&quot; &quot;O&quot; &quot;O&quot;
+## [20] &quot;O&quot; &quot;A&quot; &quot;A&quot; &quot;B&quot; &quot;A&quot; &quot;O&quot; &quot;A&quot; &quot;B&quot; &quot;A&quot; &quot;O&quot; &quot;A&quot;</code></pre>
 <p>If we were to take a very large sample, we would expect the proportion of each blood type in the sample to mimic the probabilities of each.</p>
 <pre class="r"><code>library(dplyr)</code></pre>
 <pre><code>## 
@@ -213,733 +213,18 @@ sample(bloodtypes,30,prob=prob_bloodtypes,replace=TRUE) # (vector with data to s
 ## 
 ##     intersect, setdiff, setequal, union</code></pre>
 <pre class="r"><code>n&lt;-10000
-(sample_blood&lt;-sample(bloodtypes,n,prob=prob_bloodtypes,replace=TRUE))</code></pre>
-<pre><code>##     [1] &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot; 
-##    [15] &quot;A&quot;  &quot;A&quot;  &quot;AB&quot; &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot; 
-##    [29] &quot;B&quot;  &quot;AB&quot; &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;AB&quot; &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot; 
-##    [43] &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot; 
-##    [57] &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot; 
-##    [71] &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot; 
-##    [85] &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot; 
-##    [99] &quot;B&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;AB&quot; &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;AB&quot; &quot;A&quot;  &quot;O&quot;  &quot;O&quot; 
-##   [113] &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot; 
-##   [127] &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;O&quot;  &quot;B&quot;  &quot;A&quot; 
-##   [141] &quot;A&quot;  &quot;B&quot;  &quot;AB&quot; &quot;B&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot; 
-##   [155] &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot; 
-##   [169] &quot;AB&quot; &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot; 
-##   [183] &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot; 
-##   [197] &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;AB&quot; &quot;AB&quot; &quot;AB&quot; &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot; 
-##   [211] &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot; 
-##   [225] &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot; 
-##   [239] &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot; 
-##   [253] &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;AB&quot;
-##   [267] &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;AB&quot; &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot; 
-##   [281] &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;AB&quot; &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot; 
-##   [295] &quot;AB&quot; &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;O&quot; 
-##   [309] &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot; 
-##   [323] &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot; 
-##   [337] &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot; 
-##   [351] &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot; 
-##   [365] &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;O&quot;  &quot;O&quot;  &quot;O&quot; 
-##   [379] &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot; 
-##   [393] &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot; 
-##   [407] &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;B&quot; 
-##   [421] &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot; 
-##   [435] &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;AB&quot;
-##   [449] &quot;O&quot;  &quot;A&quot;  &quot;AB&quot; &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot; 
-##   [463] &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot; 
-##   [477] &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot; 
-##   [491] &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;AB&quot; &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot; 
-##   [505] &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot; 
-##   [519] &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot; 
-##   [533] &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot; 
-##   [547] &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot; 
-##   [561] &quot;B&quot;  &quot;A&quot;  &quot;B&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot; 
-##   [575] &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;B&quot;  &quot;AB&quot; &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot; 
-##   [589] &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot; 
-##   [603] &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot; 
-##   [617] &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot; 
-##   [631] &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot; 
-##   [645] &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;B&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot; 
-##   [659] &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot; 
-##   [673] &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot; 
-##   [687] &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot; 
-##   [701] &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;O&quot;  &quot;O&quot;  &quot;O&quot; 
-##   [715] &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;AB&quot; &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;AB&quot; &quot;O&quot;  &quot;O&quot; 
-##   [729] &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot; 
-##   [743] &quot;AB&quot; &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;AB&quot; &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot; 
-##   [757] &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot; 
-##   [771] &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;AB&quot; &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot; 
-##   [785] &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;AB&quot; &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot; 
-##   [799] &quot;AB&quot; &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;O&quot;  &quot;O&quot;  &quot;O&quot; 
-##   [813] &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot; 
-##   [827] &quot;A&quot;  &quot;O&quot;  &quot;AB&quot; &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot; 
-##   [841] &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot; 
-##   [855] &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;AB&quot; &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot; 
-##   [869] &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;AB&quot; &quot;B&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot; 
-##   [883] &quot;A&quot;  &quot;O&quot;  &quot;AB&quot; &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot; 
-##   [897] &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;AB&quot; &quot;AB&quot;
-##   [911] &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;B&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot; 
-##   [925] &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;AB&quot; &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot; 
-##   [939] &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot; 
-##   [953] &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot; 
-##   [967] &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;AB&quot; &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot; 
-##   [981] &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot; 
-##   [995] &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;AB&quot; &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;AB&quot; &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [1009] &quot;B&quot;  &quot;A&quot;  &quot;AB&quot; &quot;A&quot;  &quot;AB&quot; &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [1023] &quot;B&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;AB&quot; &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;AB&quot; &quot;B&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [1037] &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;AB&quot; &quot;O&quot; 
-##  [1051] &quot;O&quot;  &quot;B&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot; 
-##  [1065] &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot; 
-##  [1079] &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [1093] &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot; 
-##  [1107] &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [1121] &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot; 
-##  [1135] &quot;AB&quot; &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;B&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;AB&quot; &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [1149] &quot;A&quot;  &quot;AB&quot; &quot;AB&quot; &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [1163] &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [1177] &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [1191] &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;AB&quot;
-##  [1205] &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [1219] &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;AB&quot; &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [1233] &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;AB&quot; &quot;O&quot;  &quot;O&quot; 
-##  [1247] &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [1261] &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;AB&quot; &quot;O&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [1275] &quot;O&quot;  &quot;AB&quot; &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;AB&quot; &quot;O&quot; 
-##  [1289] &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot; 
-##  [1303] &quot;AB&quot; &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [1317] &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot; 
-##  [1331] &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [1345] &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot; 
-##  [1359] &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;AB&quot; &quot;O&quot; 
-##  [1373] &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;B&quot;  &quot;O&quot; 
-##  [1387] &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot; 
-##  [1401] &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [1415] &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [1429] &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;B&quot; 
-##  [1443] &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [1457] &quot;A&quot;  &quot;B&quot;  &quot;AB&quot; &quot;A&quot;  &quot;A&quot;  &quot;AB&quot; &quot;A&quot;  &quot;B&quot;  &quot;B&quot;  &quot;B&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [1471] &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;AB&quot; &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [1485] &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [1499] &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [1513] &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;AB&quot; &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [1527] &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;AB&quot; &quot;O&quot;  &quot;B&quot;  &quot;O&quot; 
-##  [1541] &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot; 
-##  [1555] &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [1569] &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [1583] &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot; 
-##  [1597] &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;AB&quot;
-##  [1611] &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;A&quot;  &quot;O&quot;  &quot;B&quot; 
-##  [1625] &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [1639] &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;AB&quot;
-##  [1653] &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [1667] &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;AB&quot; &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;AB&quot; &quot;O&quot; 
-##  [1681] &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;AB&quot; &quot;AB&quot; &quot;B&quot; 
-##  [1695] &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [1709] &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;AB&quot; &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [1723] &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [1737] &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [1751] &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [1765] &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;AB&quot; &quot;B&quot;  &quot;AB&quot; &quot;A&quot;  &quot;AB&quot; &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [1779] &quot;O&quot;  &quot;AB&quot; &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [1793] &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [1807] &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;AB&quot; &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [1821] &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot; 
-##  [1835] &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;AB&quot; &quot;A&quot; 
-##  [1849] &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [1863] &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;AB&quot; &quot;O&quot;  &quot;B&quot;  &quot;B&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [1877] &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [1891] &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;AB&quot; &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [1905] &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;AB&quot; &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [1919] &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [1933] &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;AB&quot; &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [1947] &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [1961] &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;B&quot; 
-##  [1975] &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot; 
-##  [1989] &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [2003] &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;AB&quot; &quot;O&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [2017] &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [2031] &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [2045] &quot;O&quot;  &quot;AB&quot; &quot;B&quot;  &quot;AB&quot; &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot; 
-##  [2059] &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [2073] &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot; 
-##  [2087] &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;B&quot;  &quot;O&quot; 
-##  [2101] &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [2115] &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [2129] &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;B&quot;  &quot;O&quot;  &quot;B&quot;  &quot;B&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [2143] &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;A&quot;  &quot;O&quot; 
-##  [2157] &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot; 
-##  [2171] &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;AB&quot; &quot;O&quot; 
-##  [2185] &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot; 
-##  [2199] &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;AB&quot; &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [2213] &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [2227] &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [2241] &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [2255] &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [2269] &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;AB&quot; &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot; 
-##  [2283] &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [2297] &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot; 
-##  [2311] &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot; 
-##  [2325] &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [2339] &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;AB&quot;
-##  [2353] &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;AB&quot; &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [2367] &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [2381] &quot;AB&quot; &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [2395] &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot; 
-##  [2409] &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [2423] &quot;O&quot;  &quot;A&quot;  &quot;AB&quot; &quot;A&quot;  &quot;O&quot;  &quot;AB&quot; &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;AB&quot;
-##  [2437] &quot;B&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;AB&quot; &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [2451] &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;AB&quot; &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot; 
-##  [2465] &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;AB&quot; &quot;A&quot;  &quot;A&quot;  &quot;AB&quot; &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [2479] &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;AB&quot; &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot; 
-##  [2493] &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [2507] &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;AB&quot; &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [2521] &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [2535] &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;AB&quot; &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [2549] &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [2563] &quot;O&quot;  &quot;A&quot;  &quot;AB&quot; &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [2577] &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [2591] &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [2605] &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [2619] &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;AB&quot;
-##  [2633] &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [2647] &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;AB&quot; &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [2661] &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot; 
-##  [2675] &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [2689] &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot; 
-##  [2703] &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [2717] &quot;O&quot;  &quot;B&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [2731] &quot;A&quot;  &quot;A&quot;  &quot;AB&quot; &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;B&quot;  &quot;A&quot; 
-##  [2745] &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;AB&quot; &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [2759] &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;AB&quot; &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [2773] &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [2787] &quot;AB&quot; &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot; 
-##  [2801] &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;AB&quot; &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [2815] &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;AB&quot; &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [2829] &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [2843] &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [2857] &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot; 
-##  [2871] &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;AB&quot;
-##  [2885] &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;AB&quot; &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [2899] &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [2913] &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;AB&quot; &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [2927] &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [2941] &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [2955] &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot; 
-##  [2969] &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [2983] &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;AB&quot;
-##  [2997] &quot;AB&quot; &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [3011] &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [3025] &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;AB&quot; &quot;AB&quot; &quot;O&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [3039] &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot; 
-##  [3053] &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [3067] &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [3081] &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [3095] &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;AB&quot; &quot;AB&quot; &quot;AB&quot; &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [3109] &quot;B&quot;  &quot;A&quot;  &quot;AB&quot; &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [3123] &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [3137] &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;AB&quot; &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [3151] &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot; 
-##  [3165] &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;AB&quot; &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [3179] &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [3193] &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;AB&quot; &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;AB&quot; &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [3207] &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [3221] &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [3235] &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot; 
-##  [3249] &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [3263] &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [3277] &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;AB&quot; &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [3291] &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;AB&quot; &quot;A&quot;  &quot;A&quot;  &quot;B&quot; 
-##  [3305] &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [3319] &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;AB&quot; &quot;B&quot;  &quot;A&quot;  &quot;B&quot; 
-##  [3333] &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot; 
-##  [3347] &quot;B&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [3361] &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot; 
-##  [3375] &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [3389] &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot; 
-##  [3403] &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [3417] &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot; 
-##  [3431] &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;AB&quot; &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [3445] &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;AB&quot; &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot; 
-##  [3459] &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [3473] &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;AB&quot; &quot;B&quot;  &quot;A&quot; 
-##  [3487] &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;AB&quot; &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [3501] &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [3515] &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [3529] &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [3543] &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;AB&quot; &quot;B&quot; 
-##  [3557] &quot;A&quot;  &quot;A&quot;  &quot;AB&quot; &quot;AB&quot; &quot;AB&quot; &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot; 
-##  [3571] &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;AB&quot; &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [3585] &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;B&quot;  &quot;O&quot;  &quot;AB&quot; &quot;A&quot;  &quot;AB&quot; &quot;AB&quot; &quot;A&quot; 
-##  [3599] &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [3613] &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [3627] &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;B&quot;  &quot;B&quot; 
-##  [3641] &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;B&quot;  &quot;A&quot;  &quot;B&quot; 
-##  [3655] &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot; 
-##  [3669] &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot; 
-##  [3683] &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [3697] &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [3711] &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [3725] &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;AB&quot; &quot;B&quot;  &quot;A&quot; 
-##  [3739] &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [3753] &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [3767] &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [3781] &quot;B&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;AB&quot; &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [3795] &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;AB&quot; &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [3809] &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [3823] &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [3837] &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [3851] &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [3865] &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [3879] &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;AB&quot; &quot;B&quot;  &quot;O&quot; 
-##  [3893] &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;AB&quot; &quot;O&quot; 
-##  [3907] &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [3921] &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;AB&quot; &quot;O&quot; 
-##  [3935] &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot; 
-##  [3949] &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;AB&quot; &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [3963] &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;AB&quot; &quot;O&quot;  &quot;AB&quot; &quot;O&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [3977] &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;AB&quot; &quot;A&quot;  &quot;AB&quot; &quot;A&quot; 
-##  [3991] &quot;B&quot;  &quot;A&quot;  &quot;AB&quot; &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;AB&quot;
-##  [4005] &quot;O&quot;  &quot;AB&quot; &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;B&quot;  &quot;B&quot;  &quot;O&quot; 
-##  [4019] &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [4033] &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [4047] &quot;AB&quot; &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [4061] &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;AB&quot; &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [4075] &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;AB&quot; &quot;A&quot;  &quot;AB&quot; &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;AB&quot; &quot;A&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [4089] &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [4103] &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [4117] &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;AB&quot; &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [4131] &quot;O&quot;  &quot;AB&quot; &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [4145] &quot;A&quot;  &quot;A&quot;  &quot;AB&quot; &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;AB&quot; &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [4159] &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [4173] &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot; 
-##  [4187] &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [4201] &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [4215] &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;AB&quot; &quot;A&quot;  &quot;B&quot; 
-##  [4229] &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [4243] &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;B&quot; 
-##  [4257] &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;AB&quot; &quot;O&quot;  &quot;A&quot; 
-##  [4271] &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [4285] &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;AB&quot; &quot;O&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [4299] &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot; 
-##  [4313] &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [4327] &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;A&quot; 
-##  [4341] &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot; 
-##  [4355] &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [4369] &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot; 
-##  [4383] &quot;A&quot;  &quot;A&quot;  &quot;AB&quot; &quot;A&quot;  &quot;O&quot;  &quot;AB&quot; &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [4397] &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;B&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [4411] &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot; 
-##  [4425] &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [4439] &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [4453] &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [4467] &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot; 
-##  [4481] &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [4495] &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [4509] &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot; 
-##  [4523] &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;B&quot;  &quot;A&quot;  &quot;AB&quot; &quot;B&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [4537] &quot;B&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;AB&quot; &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot; 
-##  [4551] &quot;A&quot;  &quot;A&quot;  &quot;AB&quot; &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;O&quot; 
-##  [4565] &quot;B&quot;  &quot;O&quot;  &quot;AB&quot; &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [4579] &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [4593] &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot; 
-##  [4607] &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [4621] &quot;O&quot;  &quot;AB&quot; &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [4635] &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [4649] &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot; 
-##  [4663] &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot; 
-##  [4677] &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [4691] &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;AB&quot; &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;B&quot;  &quot;AB&quot; &quot;O&quot; 
-##  [4705] &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;AB&quot; &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [4719] &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;AB&quot; &quot;O&quot; 
-##  [4733] &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [4747] &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;AB&quot; &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;B&quot; 
-##  [4761] &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [4775] &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;B&quot;  &quot;B&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [4789] &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [4803] &quot;B&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [4817] &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot; 
-##  [4831] &quot;AB&quot; &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;AB&quot; &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [4845] &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [4859] &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;AB&quot; &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [4873] &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [4887] &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [4901] &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [4915] &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;AB&quot;
-##  [4929] &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [4943] &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;AB&quot; &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;AB&quot; &quot;A&quot; 
-##  [4957] &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;AB&quot; &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [4971] &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [4985] &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;AB&quot; &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;AB&quot; &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [4999] &quot;B&quot;  &quot;A&quot;  &quot;AB&quot; &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [5013] &quot;B&quot;  &quot;O&quot;  &quot;B&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;B&quot;  &quot;AB&quot; &quot;A&quot; 
-##  [5027] &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [5041] &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot; 
-##  [5055] &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [5069] &quot;O&quot;  &quot;B&quot;  &quot;B&quot;  &quot;AB&quot; &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;B&quot; 
-##  [5083] &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;AB&quot;
-##  [5097] &quot;B&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;AB&quot; &quot;O&quot;  &quot;AB&quot; &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot; 
-##  [5111] &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;AB&quot; &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [5125] &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [5139] &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;B&quot; 
-##  [5153] &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [5167] &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot; 
-##  [5181] &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;AB&quot; &quot;A&quot; 
-##  [5195] &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [5209] &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [5223] &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;O&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [5237] &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [5251] &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;AB&quot; &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [5265] &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [5279] &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;AB&quot; &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [5293] &quot;A&quot;  &quot;AB&quot; &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [5307] &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;AB&quot; &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;AB&quot;
-##  [5321] &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot; 
-##  [5335] &quot;O&quot;  &quot;A&quot;  &quot;AB&quot; &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot; 
-##  [5349] &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;B&quot;  &quot;O&quot;  &quot;B&quot; 
-##  [5363] &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [5377] &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot; 
-##  [5391] &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [5405] &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [5419] &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;AB&quot; &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [5433] &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [5447] &quot;A&quot;  &quot;B&quot;  &quot;B&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;AB&quot; &quot;A&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [5461] &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;AB&quot; &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot; 
-##  [5475] &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;AB&quot; &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [5489] &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;AB&quot; &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [5503] &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;AB&quot; &quot;O&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [5517] &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [5531] &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;B&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [5545] &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [5559] &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot; 
-##  [5573] &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;AB&quot; &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [5587] &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;O&quot;  &quot;O&quot; 
-##  [5601] &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [5615] &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [5629] &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [5643] &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot; 
-##  [5657] &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [5671] &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot; 
-##  [5685] &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;B&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [5699] &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;AB&quot; &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [5713] &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [5727] &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [5741] &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [5755] &quot;O&quot;  &quot;A&quot;  &quot;AB&quot; &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [5769] &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [5783] &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;AB&quot; &quot;AB&quot; &quot;O&quot;  &quot;AB&quot; &quot;O&quot; 
-##  [5797] &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;AB&quot; &quot;O&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [5811] &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;A&quot;  &quot;A&quot; 
-##  [5825] &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;O&quot;  &quot;O&quot; 
-##  [5839] &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;B&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [5853] &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [5867] &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot; 
-##  [5881] &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [5895] &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot; 
-##  [5909] &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [5923] &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot; 
-##  [5937] &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot; 
-##  [5951] &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;AB&quot; &quot;O&quot;  &quot;A&quot; 
-##  [5965] &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;AB&quot; &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [5979] &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [5993] &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;AB&quot; &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [6007] &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;B&quot;  &quot;O&quot; 
-##  [6021] &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [6035] &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;AB&quot; &quot;O&quot;  &quot;O&quot; 
-##  [6049] &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [6063] &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;AB&quot; &quot;B&quot;  &quot;B&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [6077] &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [6091] &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;AB&quot; &quot;O&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [6105] &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [6119] &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [6133] &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;B&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [6147] &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;AB&quot; &quot;A&quot;  &quot;A&quot;  &quot;AB&quot; &quot;O&quot; 
-##  [6161] &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;AB&quot; &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [6175] &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [6189] &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;A&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [6203] &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [6217] &quot;O&quot;  &quot;B&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;AB&quot; &quot;O&quot;  &quot;A&quot; 
-##  [6231] &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [6245] &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;B&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;B&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [6259] &quot;B&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [6273] &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [6287] &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot; 
-##  [6301] &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [6315] &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot; 
-##  [6329] &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot; 
-##  [6343] &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;O&quot; 
-##  [6357] &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [6371] &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;AB&quot; &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;AB&quot; &quot;B&quot; 
-##  [6385] &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [6399] &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [6413] &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [6427] &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot; 
-##  [6441] &quot;AB&quot; &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;AB&quot; &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [6455] &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [6469] &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [6483] &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [6497] &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [6511] &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;AB&quot; &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [6525] &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [6539] &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;B&quot;  &quot;A&quot; 
-##  [6553] &quot;AB&quot; &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [6567] &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [6581] &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [6595] &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [6609] &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;AB&quot; &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [6623] &quot;A&quot;  &quot;B&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;AB&quot; &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [6637] &quot;AB&quot; &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;B&quot;  &quot;A&quot;  &quot;B&quot;  &quot;B&quot;  &quot;A&quot;  &quot;AB&quot; &quot;O&quot;  &quot;O&quot; 
-##  [6651] &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;AB&quot; &quot;O&quot; 
-##  [6665] &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;AB&quot; &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [6679] &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot; 
-##  [6693] &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [6707] &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot; 
-##  [6721] &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;B&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [6735] &quot;A&quot;  &quot;B&quot;  &quot;B&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot; 
-##  [6749] &quot;AB&quot; &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [6763] &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;AB&quot; &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [6777] &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [6791] &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;O&quot; 
-##  [6805] &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [6819] &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [6833] &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;AB&quot; &quot;A&quot;  &quot;A&quot; 
-##  [6847] &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [6861] &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;AB&quot; &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot; 
-##  [6875] &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [6889] &quot;AB&quot; &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;AB&quot; &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [6903] &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;B&quot;  &quot;O&quot; 
-##  [6917] &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [6931] &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [6945] &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [6959] &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [6973] &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;AB&quot; &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [6987] &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot; 
-##  [7001] &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;AB&quot; &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [7015] &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [7029] &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [7043] &quot;AB&quot; &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;AB&quot; &quot;A&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [7057] &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [7071] &quot;B&quot;  &quot;AB&quot; &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [7085] &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot; 
-##  [7099] &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;B&quot;  &quot;B&quot;  &quot;B&quot;  &quot;B&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [7113] &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [7127] &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot; 
-##  [7141] &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [7155] &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;B&quot; 
-##  [7169] &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;AB&quot; &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [7183] &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot; 
-##  [7197] &quot;A&quot;  &quot;AB&quot; &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;AB&quot; &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot; 
-##  [7211] &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [7225] &quot;O&quot;  &quot;B&quot;  &quot;AB&quot; &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;AB&quot;
-##  [7239] &quot;AB&quot; &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [7253] &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot; 
-##  [7267] &quot;AB&quot; &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;AB&quot; &quot;B&quot; 
-##  [7281] &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [7295] &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;AB&quot; &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [7309] &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [7323] &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [7337] &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [7351] &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;AB&quot; &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [7365] &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [7379] &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;AB&quot; &quot;O&quot;  &quot;AB&quot; &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [7393] &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [7407] &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [7421] &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;AB&quot; &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;AB&quot;
-##  [7435] &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [7449] &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [7463] &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot; 
-##  [7477] &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;AB&quot; &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot; 
-##  [7491] &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [7505] &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;B&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;B&quot; 
-##  [7519] &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;AB&quot; &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [7533] &quot;AB&quot; &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;AB&quot; &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [7547] &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [7561] &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [7575] &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot; 
-##  [7589] &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;B&quot;  &quot;A&quot;  &quot;B&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;B&quot;  &quot;B&quot; 
-##  [7603] &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [7617] &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;AB&quot; &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [7631] &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [7645] &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [7659] &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [7673] &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [7687] &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot; 
-##  [7701] &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [7715] &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;AB&quot;
-##  [7729] &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [7743] &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [7757] &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;AB&quot; &quot;A&quot;  &quot;B&quot;  &quot;O&quot; 
-##  [7771] &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [7785] &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [7799] &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;AB&quot; &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot; 
-##  [7813] &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;AB&quot; &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;AB&quot; &quot;B&quot; 
-##  [7827] &quot;AB&quot; &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;AB&quot; &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [7841] &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [7855] &quot;O&quot;  &quot;AB&quot; &quot;AB&quot; &quot;O&quot;  &quot;A&quot;  &quot;AB&quot; &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [7869] &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;AB&quot; &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [7883] &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot; 
-##  [7897] &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;AB&quot; &quot;O&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [7911] &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot; 
-##  [7925] &quot;AB&quot; &quot;AB&quot; &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;AB&quot; &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [7939] &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;AB&quot; &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [7953] &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [7967] &quot;A&quot;  &quot;O&quot;  &quot;AB&quot; &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [7981] &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [7995] &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;AB&quot; &quot;O&quot;  &quot;O&quot; 
-##  [8009] &quot;AB&quot; &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [8023] &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot; 
-##  [8037] &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;AB&quot; &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [8051] &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot; 
-##  [8065] &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [8079] &quot;O&quot;  &quot;AB&quot; &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;B&quot;  &quot;A&quot;  &quot;AB&quot;
-##  [8093] &quot;AB&quot; &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;AB&quot; &quot;O&quot; 
-##  [8107] &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [8121] &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;AB&quot; &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [8135] &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [8149] &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;AB&quot; &quot;O&quot;  &quot;A&quot; 
-##  [8163] &quot;A&quot;  &quot;B&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [8177] &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;AB&quot; &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [8191] &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [8205] &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;AB&quot; &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [8219] &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [8233] &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [8247] &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [8261] &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [8275] &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [8289] &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [8303] &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [8317] &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;AB&quot; &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot; 
-##  [8331] &quot;AB&quot; &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [8345] &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [8359] &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot; 
-##  [8373] &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;AB&quot; &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [8387] &quot;AB&quot; &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [8401] &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;AB&quot; &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [8415] &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [8429] &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [8443] &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [8457] &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [8471] &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [8485] &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [8499] &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot; 
-##  [8513] &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot; 
-##  [8527] &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [8541] &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;AB&quot; &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot; 
-##  [8555] &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [8569] &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [8583] &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;AB&quot; &quot;A&quot;  &quot;O&quot; 
-##  [8597] &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [8611] &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [8625] &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [8639] &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;AB&quot; &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [8653] &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot; 
-##  [8667] &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [8681] &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [8695] &quot;O&quot;  &quot;AB&quot; &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [8709] &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;A&quot;  &quot;AB&quot; &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot; 
-##  [8723] &quot;AB&quot; &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;B&quot;  &quot;B&quot;  &quot;B&quot;  &quot;AB&quot; &quot;A&quot;  &quot;A&quot; 
-##  [8737] &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [8751] &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;A&quot;  &quot;AB&quot; &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;B&quot; 
-##  [8765] &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [8779] &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [8793] &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [8807] &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;B&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [8821] &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [8835] &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;AB&quot; &quot;A&quot;  &quot;O&quot;  &quot;AB&quot; &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;O&quot;  &quot;O&quot; 
-##  [8849] &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot; 
-##  [8863] &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [8877] &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;AB&quot; &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [8891] &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [8905] &quot;AB&quot; &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [8919] &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [8933] &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;AB&quot; &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [8947] &quot;AB&quot; &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot; 
-##  [8961] &quot;O&quot;  &quot;AB&quot; &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;AB&quot; &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [8975] &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [8989] &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [9003] &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;B&quot;  &quot;AB&quot; &quot;O&quot; 
-##  [9017] &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;AB&quot; &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [9031] &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;A&quot;  &quot;A&quot; 
-##  [9045] &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [9059] &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [9073] &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;AB&quot; &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [9087] &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;AB&quot; &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;O&quot; 
-##  [9101] &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot; 
-##  [9115] &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;B&quot;  &quot;AB&quot; &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [9129] &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;AB&quot; &quot;O&quot; 
-##  [9143] &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot; 
-##  [9157] &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [9171] &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [9185] &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;B&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [9199] &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [9213] &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;AB&quot; &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [9227] &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [9241] &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [9255] &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [9269] &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;AB&quot; &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;AB&quot; &quot;A&quot; 
-##  [9283] &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot; 
-##  [9297] &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [9311] &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [9325] &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;AB&quot; &quot;O&quot; 
-##  [9339] &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [9353] &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [9367] &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [9381] &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot; 
-##  [9395] &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;B&quot;  &quot;B&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [9409] &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;B&quot; 
-##  [9423] &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot; 
-##  [9437] &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot; 
-##  [9451] &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [9465] &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;AB&quot; &quot;B&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [9479] &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;AB&quot; &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [9493] &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [9507] &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [9521] &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [9535] &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [9549] &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [9563] &quot;A&quot;  &quot;A&quot;  &quot;AB&quot; &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [9577] &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;AB&quot; &quot;O&quot; 
-##  [9591] &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [9605] &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;AB&quot; &quot;B&quot;  &quot;A&quot; 
-##  [9619] &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot; 
-##  [9633] &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [9647] &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;AB&quot;
-##  [9661] &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;AB&quot; &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [9675] &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;AB&quot; &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [9689] &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;AB&quot;
-##  [9703] &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [9717] &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [9731] &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;B&quot;  &quot;O&quot; 
-##  [9745] &quot;B&quot;  &quot;O&quot;  &quot;AB&quot; &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [9759] &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;AB&quot; &quot;B&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;AB&quot; &quot;O&quot;  &quot;O&quot; 
-##  [9773] &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [9787] &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [9801] &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [9815] &quot;O&quot;  &quot;AB&quot; &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [9829] &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [9843] &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [9857] &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [9871] &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [9885] &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;AB&quot; &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot; 
-##  [9899] &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot; 
-##  [9913] &quot;B&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;B&quot;  &quot;AB&quot; &quot;O&quot;  &quot;O&quot; 
-##  [9927] &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [9941] &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;AB&quot; &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot; 
-##  [9955] &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot;  &quot;AB&quot; &quot;O&quot; 
-##  [9969] &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;B&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot; 
-##  [9983] &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;B&quot;  &quot;A&quot; 
-##  [9997] &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;</code></pre>
-<pre class="r"><code>#(sample_blood&lt;-sample(bloodtypes,1000,prob=prob_bloodtypes,replace=TRUE))
+sample_blood&lt;-sample(bloodtypes,n,prob=prob_bloodtypes,replace=TRUE)
+#(sample_blood&lt;-sample(bloodtypes,1000,prob=prob_bloodtypes,replace=TRUE))
 
 #(sample_blood&lt;-sample(bloodtypes,10000,prob=prob_bloodtypes,replace=TRUE))
 table(sample_blood)%&gt;%prop.table()#%&gt;% take the table and make it a porportion</code></pre>
 <pre><code>## sample_blood
 ##      A     AB      B      O 
-## 0.3982 0.0415 0.1100 0.4503</code></pre>
+## 0.4080 0.0382 0.1086 0.4452</code></pre>
 <pre class="r"><code>table(sample_blood)/n</code></pre>
 <pre><code>## sample_blood
 ##      A     AB      B      O 
-## 0.3982 0.0415 0.1100 0.4503</code></pre>
+## 0.4080 0.0382 0.1086 0.4452</code></pre>
 </div>
 <div id="using-simulation-to-compute-probabilities" class="section level4">
 <h4>Using simulation to compute probabilities</h4>
@@ -959,7 +244,7 @@ results&lt;-die1+die2
 table(results)/n</code></pre>
 <pre><code>## results
 ##      2      3      4      5      6      7      8      9     10     11     12 
-## 0.0294 0.0543 0.0793 0.1121 0.1429 0.1655 0.1364 0.1113 0.0866 0.0538 0.0284</code></pre>
+## 0.0282 0.0550 0.0877 0.1104 0.1282 0.1689 0.1347 0.1121 0.0879 0.0569 0.0300</code></pre>
 <pre class="r"><code>number_to_add&lt;-sample(dice,10000,replace= TRUE)
 number_to_Be_added&lt;-sample(dice,10000,replace= TRUE)
 
@@ -970,22 +255,22 @@ die_2&lt;-sample(1:6,10000,replace=TRUE)
 
 sim_results&lt;-die_1 +die_2
 sim_results[1:10]</code></pre>
-<pre><code>##  [1]  9 11  7  9  9  6  9  4  5 10</code></pre>
+<pre><code>##  [1]  7  4 12  7 10  4  9  5  9 11</code></pre>
 <p>Let <em>E</em> be the event <em>the sum of the dice is 6</em> and <em>F</em> the event <em>At least one of the dice is a 2</em>.</p>
 <p>We can get the probability of these by first extracting each event from our simulation results.</p>
 <pre class="r"><code>E&lt;-sim_results==6
 E[1:20]</code></pre>
-<pre><code>##  [1] FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE  TRUE FALSE
-## [13] FALSE FALSE  TRUE FALSE FALSE  TRUE FALSE FALSE</code></pre>
+<pre><code>##  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+## [13] FALSE FALSE FALSE  TRUE FALSE FALSE  TRUE FALSE</code></pre>
 <pre class="r"><code>mean(E) #changes everything to zeros and ones because it is true and false</code></pre>
-<pre><code>## [1] 0.1408</code></pre>
+<pre><code>## [1] 0.1369</code></pre>
 <p><span class="math inline">\(E\)</span> and <span class="math inline">\(F\)</span> now consists of TRUEs and FALSEs. If we want to change this into a numeric variable the FALSEs would correspond to 0 and the TRUEs would correspond to 1. If we use the command <code>mean</code> then R automatically turns the vector into a numeric vector of 0s and 1s and then calculates the mean. When we have 0 and 1 data, the average is equivalent to the proportion of 1s. Thus, we can compute the probability of event E or F by calculating the mean.</p>
 <pre class="r"><code>f&lt;-die_1 ==2 | die_2 ==2
 f[1:20]</code></pre>
-<pre><code>##  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-## [13] FALSE  TRUE  TRUE FALSE FALSE  TRUE FALSE FALSE</code></pre>
+<pre><code>##  [1] FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE
+## [13] FALSE FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE</code></pre>
 <pre class="r"><code>mean(f)</code></pre>
-<pre><code>## [1] 0.3023</code></pre>
+<pre><code>## [1] 0.3086</code></pre>
 </div>
 <div id="example" class="section level4">
 <h4>Example</h4>
@@ -1004,7 +289,7 @@ a&lt;-sample(sample_space,10000,replace = TRUE,prob = color_prob)
 
 green_ms&lt;- a== &quot;green&quot;
 (mean(green_ms))</code></pre>
-<pre><code>## [1] 0.1967</code></pre>
+<pre><code>## [1] 0.2017</code></pre>
 <pre class="r"><code>1-mean(green_ms ==&quot;green&quot;)</code></pre>
 <pre><code>## [1] 1</code></pre>
 <pre class="r"><code>(mean(results!= &quot;green&quot;))</code></pre>
@@ -1013,7 +298,7 @@ green_ms&lt;- a== &quot;green&quot;
 #1-mean(results==&quot;green&quot;)
 
 mean(results==&quot;yelloww&quot; | results == &quot;orange&quot; | results == &quot;red&quot;)</code></pre>
-<pre><code>## [1] 0.3267</code></pre>
+<pre><code>## [1] 0.3266</code></pre>
 <p>Are the exact probabilities and the simulated probabilities close?</p>
 </div>
 </div>
@@ -1045,13 +330,13 @@ results_dice&lt;-replicate(10000,{
 })
 
 mean(results_dice)</code></pre>
-<pre><code>## [1] 0.0977</code></pre>
+<pre><code>## [1] 0.0947</code></pre>
 <p>Now, calculate the probability of rolling a die 7 times and getting a sum larger than 30.</p>
 <pre class="r"><code>results_dice[1:20]</code></pre>
-<pre><code>##  [1] FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-## [13] FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE</code></pre>
+<pre><code>##  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+## [13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</code></pre>
 <pre class="r"><code>mean(results_dice)</code></pre>
-<pre><code>## [1] 0.0977</code></pre>
+<pre><code>## [1] 0.0947</code></pre>
 <p>The following sequence is how you should approach writing code that uses the function <code>replicate</code>:</p>
 <ol style="list-style-type: decimal">
 <li>Write code that performs the experiment a single time.</li>
@@ -1099,10 +384,10 @@ diff_3&lt;- abs(die1-die2)&lt; 3})
 
 
 results_diff3[1:20]</code></pre>
-<pre><code>##  [1]  TRUE  TRUE FALSE  TRUE  TRUE  TRUE  TRUE FALSE FALSE  TRUE  TRUE FALSE
-## [13]  TRUE  TRUE FALSE  TRUE  TRUE FALSE  TRUE FALSE</code></pre>
+<pre><code>##  [1]  TRUE  TRUE  TRUE  TRUE FALSE FALSE FALSE FALSE  TRUE FALSE  TRUE  TRUE
+## [13] FALSE  TRUE  TRUE FALSE FALSE  TRUE  TRUE  TRUE</code></pre>
 <pre class="r"><code>mean(results_diff3)</code></pre>
-<pre><code>## [1] 0.6635</code></pre>
+<pre><code>## [1] 0.6645</code></pre>
 <pre class="r"><code>##Step 3: Up the replicates and store them in a vector
 
 
@@ -1116,17 +401,17 @@ results_diff3[1:20]</code></pre>
 results&lt;-replicate(10, {coin&lt;-sample(0:1,1)})
 
 results </code></pre>
-<pre><code>##  [1] 0 1 0 0 1 1 1 1 0 1</code></pre>
+<pre><code>##  [1] 0 0 0 1 1 0 0 0 1 0</code></pre>
 <pre class="r"><code>mean(results)</code></pre>
-<pre><code>## [1] 0.6</code></pre>
+<pre><code>## [1] 0.3</code></pre>
 <pre class="r"><code>###teachers way
 #you could do this..... toss&lt;-c(&quot;heads&quot;,&quot;tails&quot;)
 toss&lt;-c(0,1)
 results_toss&lt;-sample(toss,10,replace=TRUE)
 results_toss[8:10]== 1</code></pre>
-<pre><code>## [1] TRUE TRUE TRUE</code></pre>
+<pre><code>## [1] FALSE  TRUE FALSE</code></pre>
 <pre class="r"><code>sum(results_toss[8:10])==3 </code></pre>
-<pre><code>## [1] TRUE</code></pre>
+<pre><code>## [1] FALSE</code></pre>
 <pre class="r"><code>##step 2
 results&lt;- replicate(10000,{toss&lt;-c(0,1)
 results_toss&lt;-sample(toss,10,replace=TRUE)
@@ -1134,7 +419,7 @@ results_toss[8:10]== 1
 sum(results_toss[8:10])==3 })
 
 mean(results)</code></pre>
-<pre><code>## [1] 0.1256</code></pre>
+<pre><code>## [1] 0.1226</code></pre>
 <pre class="r"><code>##another approach
 
 #results&lt;-replicate(10000,
@@ -1162,7 +447,7 @@ p1&lt;- sample(blood_type,10000,prob=probability,replace=TRUE)
 p2&lt;- sample(blood_type,10000,prob=probability,replace=TRUE)
 duplicate &lt;-p1==p2
 mean(duplicate)</code></pre>
-<pre><code>## [1] 0.3735</code></pre>
+<pre><code>## [1] 0.3889</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>In a room of 200 people (including you), estimate the probability that at least one other person will be born on the same day as you.</li>
 </ol>
@@ -1173,7 +458,7 @@ birthday_twins&lt;-sum(myBday == randoGuy[1:199])&gt;0
 })
 
 mean(results)</code></pre>
-<pre><code>## [1] 0.427</code></pre>
+<pre><code>## [1] 0.4243</code></pre>
 <ol start="3" style="list-style-type: decimal">
 <li><p>If 100 balls are randomly placed into 20 urns, estimate the probability that at least one of the urns is empty.</p></li>
 <li><p>A standard deck of cards has 52 cards, four each of 2,3,4,5,6,7,8,9,10, J,Q,K,A. In blackjack, a player gets two cards and adds their values. Cards count as their usual numbers, except Aces are 11 (or 1), while K, Q, J are all 10. Use R to simulate dealing two cards, and compute these probabilities</p></li>
