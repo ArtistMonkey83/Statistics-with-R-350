@@ -182,15 +182,15 @@ pre code {
 
 x&lt;-1:10
 (sample(x,2)) #take a sample of size 2 from vector x</code></pre>
-<pre><code>## [1] 7 3</code></pre>
+<pre><code>## [1] 1 6</code></pre>
 <pre class="r"><code> (sample(x,20,replace=TRUE)) #vector size you want to sample and true for replace, the default is false</code></pre>
-<pre><code>##  [1]  4  8  5  6  7  9  7  8 10  8  7  9  6 10  7 10  2  9  1  4</code></pre>
+<pre><code>##  [1]  1  3  1  2 10  8  5 10  5  8  6  8  5  4  7  3  6  9  8  9</code></pre>
 <pre class="r"><code>##Sample three months from the list of months
 
 months&lt;-c(&quot;Jan&quot;,&quot;Feb&quot;,&quot;Mar&quot;,&quot;Apr&quot;,&quot;May&quot;,&quot;Jun&quot;,&quot;Jul&quot;,&quot;Aug&quot;,&quot;Sept&quot;,&quot;Oct&quot;,&quot;Nov&quot;,&quot;Dec&quot;)
 
 sample(months,3)</code></pre>
-<pre><code>## [1] &quot;Nov&quot; &quot;Oct&quot; &quot;May&quot;</code></pre>
+<pre><code>## [1] &quot;May&quot; &quot;Jul&quot; &quot;Jan&quot;</code></pre>
 </div>
 <div id="example-2.9" class="section level4">
 <h4>Example 2.9</h4>
@@ -200,8 +200,8 @@ sample(months,3)</code></pre>
 <pre class="r"><code>bloodtypes&lt;-c(&quot;O&quot;,&quot;A&quot;,&quot;B&quot;,&quot;AB&quot;)
 prob_bloodtypes&lt;-c(0.45,.4,.11,.04)
 sample(bloodtypes,30,prob=prob_bloodtypes,replace=TRUE) # (vector with data to sample, times to samples, set the prob attribute, and replacement is required so the option is a possibility on the next trial) #set.seed allows us to control outcomes, in class we didn't get the same sample as each other if you want to use it later you must save it to variable.</code></pre>
-<pre><code>##  [1] &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;AB&quot; &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;B&quot; 
-## [16] &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;O&quot;  &quot;A&quot;</code></pre>
+<pre><code>##  [1] &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;O&quot;  &quot;AB&quot; &quot;O&quot;  &quot;O&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot; 
+## [16] &quot;B&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;B&quot;  &quot;A&quot;  &quot;A&quot;  &quot;A&quot;  &quot;O&quot;  &quot;A&quot;  &quot;AB&quot; &quot;A&quot;  &quot;A&quot;</code></pre>
 <p>If we were to take a very large sample, we would expect the proportion of each blood type in the sample to mimic the probabilities of each.</p>
 <pre class="r"><code>library(dplyr)</code></pre>
 <pre><code>## 
@@ -220,11 +220,11 @@ sample_blood&lt;-sample(bloodtypes,n,prob=prob_bloodtypes,replace=TRUE)
 table(sample_blood)%&gt;%prop.table()#%&gt;% take the table and make it a porportion</code></pre>
 <pre><code>## sample_blood
 ##      A     AB      B      O 
-## 0.4007 0.0406 0.1129 0.4458</code></pre>
+## 0.3952 0.0379 0.1072 0.4597</code></pre>
 <pre class="r"><code>table(sample_blood)/n</code></pre>
 <pre><code>## sample_blood
 ##      A     AB      B      O 
-## 0.4007 0.0406 0.1129 0.4458</code></pre>
+## 0.3952 0.0379 0.1072 0.4597</code></pre>
 </div>
 <div id="using-simulation-to-compute-probabilities" class="section level4">
 <h4>Using simulation to compute probabilities</h4>
@@ -244,7 +244,7 @@ results&lt;-die1+die2
 table(results)/n</code></pre>
 <pre><code>## results
 ##      2      3      4      5      6      7      8      9     10     11     12 
-## 0.0274 0.0539 0.0815 0.1116 0.1345 0.1708 0.1396 0.1117 0.0837 0.0562 0.0291</code></pre>
+## 0.0295 0.0535 0.0837 0.1101 0.1378 0.1667 0.1395 0.1115 0.0826 0.0567 0.0284</code></pre>
 <pre class="r"><code>number_to_add&lt;-sample(dice,10000,replace= TRUE)
 number_to_Be_added&lt;-sample(dice,10000,replace= TRUE)
 
@@ -255,22 +255,22 @@ dice2&lt;-sample(1:6,10000,replace=TRUE)
 
 sim_results&lt;-dice1 + dice2
 sim_results[1:10]</code></pre>
-<pre><code>##  [1]  5 10  6  6  8 11  6 11 10  6</code></pre>
+<pre><code>##  [1]  4 10  8  7 11  6  5 10  8  7</code></pre>
 <p>Let <em>E</em> be the event <em>the sum of the dice is 6</em> and <em>F</em> the event <em>At least one of the dice is a 2</em>.</p>
 <p>We can get the probability of these by first extracting each event from our simulation results.</p>
 <pre class="r"><code>E&lt;-sim_results ==6
 E[1:20]</code></pre>
-<pre><code>##  [1] FALSE FALSE  TRUE  TRUE FALSE FALSE  TRUE FALSE FALSE  TRUE FALSE FALSE
-## [13] FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE</code></pre>
+<pre><code>##  [1] FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE
+## [13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</code></pre>
 <pre class="r"><code>mean(E)</code></pre>
-<pre><code>## [1] 0.1389</code></pre>
+<pre><code>## [1] 0.1402</code></pre>
 <p><span class="math inline">\(E\)</span> and <span class="math inline">\(F\)</span> now consists of TRUEs and FALSEs. If we want to change this into a numeric variable the FALSEs would correspond to 0 and the TRUEs would correspond to 1. If we use the command <code>mean</code> then R automatically turns the vector into a numeric vector of 0s and 1s and then calculates the mean. When we have 0 and 1 data, the average is equivalent to the proportion of 1s. Thus, we can compute the probability of event E or F by calculating the mean.</p>
 <pre class="r"><code>f&lt;-dice1==2 | dice2==2
 f[1:20]</code></pre>
-<pre><code>##  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE  TRUE
-## [13] FALSE FALSE FALSE  TRUE FALSE FALSE  TRUE  TRUE</code></pre>
+<pre><code>##  [1] FALSE FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE  TRUE FALSE  TRUE
+## [13]  TRUE FALSE  TRUE FALSE FALSE  TRUE FALSE  TRUE</code></pre>
 <pre class="r"><code>mean(f)</code></pre>
-<pre><code>## [1] 0.3087</code></pre>
+<pre><code>## [1] 0.3028</code></pre>
 </div>
 <div id="example" class="section level4">
 <h4>Example</h4>
@@ -291,9 +291,9 @@ A&lt;- sim_results ==&quot;green&quot;
 B &lt;- sim_results == &quot;red&quot; |sim_results ==&quot;orange&quot; |sim_results==&quot;yellow&quot;
 
 (prob_A = 1-mean(A))</code></pre>
-<pre><code>## [1] 0.8003</code></pre>
+<pre><code>## [1] 0.7998</code></pre>
 <pre class="r"><code>(prob_B = mean(B))</code></pre>
-<pre><code>## [1] 0.466</code></pre>
+<pre><code>## [1] 0.4677</code></pre>
 <p>Are the exact probabilities and the simulated probabilities close?</p>
 </div>
 </div>
@@ -325,7 +325,7 @@ results_dice&lt;-replicate(10000,{
 })
 
 mean(results_dice)</code></pre>
-<pre><code>## [1] 0.0931</code></pre>
+<pre><code>## [1] 0.0926</code></pre>
 <p>The following sequence is how you should approach writing code that uses the function <code>replicate</code>:</p>
 <ol style="list-style-type: decimal">
 <li>Write code that performs the experiment a single time.</li>
@@ -386,9 +386,9 @@ results&lt;-replicate(10,{
 })
 
 results</code></pre>
-<pre><code>##  [1] 1 1 1 0 0 0 0 1 1 1</code></pre>
+<pre><code>##  [1] 1 1 0 0 0 0 0 0 1 0</code></pre>
 <pre class="r"><code>mean(results)</code></pre>
-<pre><code>## [1] 0.6</code></pre>
+<pre><code>## [1] 0.3</code></pre>
 <pre class="r"><code>### Alternative WAy toss&lt;-c(&quot;heads&quot;,&quot;tails&quot;)
 toss&lt;-c(0,1)
 results_toss&lt;-sample(toss,10,replace=TRUE)
@@ -405,7 +405,7 @@ results&lt;-replicate(10000,{
 })
 
 mean(results)</code></pre>
-<pre><code>## [1] 0.1218</code></pre>
+<pre><code>## [1] 0.1186</code></pre>
 <pre class="r"><code>### Alternative Way
 #results&lt;-replicate(10000,{
 #toss&lt;-c(0,1)
@@ -435,7 +435,7 @@ person2&lt;-sample(blood_types,10000,replace = TRUE, prob= prob_bloodtypes)
 results &lt;- person1 == person2
 
 mean(results)</code></pre>
-<pre><code>## [1] 0.3694</code></pre>
+<pre><code>## [1] 0.3778</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>In a room of 200 people (including you), estimate the probability that at least one other person will be born on the same day as you.</li>
 </ol>
@@ -448,30 +448,19 @@ birthdayTwins&lt;-sum(myBday == randoGuy[1:199])&gt;0
 })
 
 mean(results)</code></pre>
-<pre><code>## [1] 0.4303</code></pre>
+<pre><code>## [1] 0.4136</code></pre>
 <ol start="3" style="list-style-type: decimal">
 <li>If 100 balls are randomly placed into 20 urns, estimate the probability that at least one of the urns is empty.</li>
 </ol>
-<pre class="r"><code>#balls&lt;-1:100
-#urns&lt;-1:20
-#(filling_Urns&lt;- sample(urns,20sample(balls,100))
-#empty_Urns&lt;-sum(filling_Urns ==0)
+<pre class="r"><code>ballfinal &lt;- replicate(10000, {
   
-
-
-#mean(results)
-
-
-ballfinal&lt;-replicate(10000,{
-  
-  balls&lt;-c(1:20)
-  urns&lt;-sample(balls,100, replace = TRUE)
+  balls&lt;-1:20
+  urns&lt;-sample(balls,100, replace=TRUE)
+  results&lt;-length(unique(urns))&lt; 20
 })
 
-#length(unique(urns)) #this will return 20 if no urns are empty
-results&lt;-sample(ballfinal &lt; 20)
 mean(ballfinal)</code></pre>
-<pre><code>## [1] 10.49091</code></pre>
+<pre><code>## [1] 0.1176</code></pre>
 <ol start="4" style="list-style-type: decimal">
 <li>A standard deck of cards has 52 cards, four each of 2,3,4,5,6,7,8,9,10, J,Q,K,A. In blackjack, a player gets two cards and adds their values. Cards count as their usual numbers, except Aces are 11 (or 1), while K, Q, J are all 10. Use R to simulate dealing two cards, and compute these probabilities</li>
 </ol>
@@ -482,45 +471,57 @@ length(deck) #confirming we have a full 52 card deck</code></pre>
 <pre><code>## [1] 52</code></pre>
 <pre class="r"><code>results&lt;-replicate(10000,{
   p1&lt;-sum(sample(deck,1),sample(deck,1))
-#p2&lt;-sum(sample(deck,1),sample(deck,1))
+
   blackjack &lt;-21
   winners&lt;-p1 ==blackjack })
 
   mean(results)</code></pre>
-<pre><code>## [1] 0.0481</code></pre>
+<pre><code>## [1] 0.0451</code></pre>
 <p>What is the probability of getting 19? Assume that an Ace counts as 11.</p>
 <pre class="r"><code>deck&lt;-c(rep(2:10,4),rep(10,12),rep(11,4))
 
 results&lt;-replicate(10000,{
   p1&lt;-sum(sample(deck,1),sample(deck,1))
-#p2&lt;-sum(sample(deck,1),sample(deck,1))
+  
   blackjack &lt;-19
   winners&lt;-p1 ==blackjack })
 
   mean(results)</code></pre>
-<pre><code>## [1] 0.0623</code></pre>
+<pre><code>## [1] 0.0625</code></pre>
 <ol start="5" style="list-style-type: decimal">
 <li>Suppose the proportion of M&amp;Ms by color is: 14% yellow, 13% Red, 20% Orange, 12% Brown, 20% Green, and 21% Blue. Also, suppose that you buy a bag of M&amp;Ms with 30 pieces in it. Estimate the probability of obtaining at least 9 Blue M&amp;Ms and at least 6 Orange M&amp;Ms in the bag.</li>
 </ol>
-<pre class="r"><code>colors&lt;-c(&quot;yellow&quot;,&quot;red&quot;,&quot;orange&quot;,&quot;brown&quot;,&quot;green&quot;,&quot;blue&quot;)
+<pre class="r"><code>snackBag&lt;- replicate(10000,{
+  colors&lt;-c(&quot;yellow&quot;,&quot;red&quot;,&quot;orange&quot;,&quot;brown&quot;,&quot;green&quot;,&quot;blue&quot;)
 probability&lt;-c(.14,.13,.2,.12,.2,.21)
 
-snackBag&lt;-replicate(100000,{
-  pickedMs&lt;-sample(colors,30,replace = TRUE) #this has 30 randomly selected M&amp;Ms
+trials &lt;-sample(x=colors,30,prob=probability,replace=TRUE)
 
-#We need to know if there are  at least 9 blue and 6 orange
-targetMs&lt;-sum(pickedMs==&quot;blue&quot;) &gt;= 9 &amp; sum(pickedMs ==&quot;orange&quot;)&gt;=6
+results&lt;-sum(trials==&quot;blue&quot;)&gt;8 &amp; sum(trials== &quot;orange&quot;)&gt;5})
 
-#saving the bags that actually made the cut the ones that have the correct ammount
-targetMs
-  
-})
-#finding probability 
 mean(snackBag)</code></pre>
-<pre><code>## [1] 0.01079</code></pre>
+<pre><code>## [1] 0.0624</code></pre>
 <ol start="6" style="list-style-type: decimal">
 <li>Deathrolling in World of Warcraft works as follows: Player 1 tosses a 1000 sided die. Say they get <span class="math inline">\(x_{1}\)</span>. Then player 2 tosses a die with <span class="math inline">\(x_{1}\)</span> sides on it. Say they get <span class="math inline">\(x_{2}\)</span>. Player 1 tosses a die with <span class="math inline">\(x_{2}\)</span> sides on it. This pattern continues until a player rolls a 1. The player who loses is the player who rolls a 1. Estimate via simulation the probability a 1 will be rolled on the 4th roll in deathroll.</li>
 </ol>
+<pre class="r"><code>deathrool&lt;-replicate(100000,{
+  y=TRUE
+  rollUno&lt;-sample(1:1000,1,replace=TRUE)
+  rollDos&lt;-ifelse(rollUno==1, FALSE,sample(1:rollUno,1,replace=TRUE))
+  rollTres&lt;-ifelse(rollDos==1,FALSE,sample(1:rollDos,1,replace=TRUE))
+  rollQuatro&lt;-ifelse(rollTres==1,FALSE,sample(1:rollTres,1,replace=TRUE))
+  y&lt;-rollQuatro==1
+  y
+  
+})
+
+table(deathrool)</code></pre>
+<pre><code>## deathrool
+## FALSE  TRUE 
+## 94947  5053</code></pre>
+<pre class="r"><code>mean(deathrool)</code></pre>
+<pre><code>## [1] 0.05053</code></pre>
+<p>Teacher's Advice</p>
 <p>x&lt;-c(1,2,3) y &lt;- ifelse( if, true, false)</p>
 <p>y&lt;-(sum(x)==6,1,0)</p>
 <p>An if else statement, if the sum of x is equal to 6 assign 1 to y otherwise it is false and assign it to a 0</p>

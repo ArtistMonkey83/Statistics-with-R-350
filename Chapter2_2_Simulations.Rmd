@@ -346,24 +346,13 @@ mean(results)
 3. If 100 balls are randomly placed into 20 urns, estimate the probability that at least one of the urns is empty.
 
 ```{r}
-#balls<-1:100
-#urns<-1:20
-#(filling_Urns<- sample(urns,20sample(balls,100))
-#empty_Urns<-sum(filling_Urns ==0)
+ballfinal <- replicate(10000, {
   
-
-
-#mean(results)
-
-
-ballfinal<-replicate(10000,{
-  
-  balls<-c(1:20)
-  urns<-sample(balls,100, replace = TRUE)
+  balls<-1:20
+  urns<-sample(balls,100, replace=TRUE)
+  results<-length(unique(urns))< 20
 })
 
-#length(unique(urns)) #this will return 20 if no urns are empty
-results<-sample(ballfinal < 20)
 mean(ballfinal)
 ```
 4. A standard deck of cards has 52 cards, four each of 2,3,4,5,6,7,8,9,10, J,Q,K,A. In blackjack, a player gets two cards and adds their values. Cards count as their usual numbers, except Aces are 11 (or 1), while K, Q, J are all 10. Use R to simulate dealing two cards, and compute these probabilities 
@@ -378,7 +367,7 @@ length(deck) #confirming we have a full 52 card deck
 
 results<-replicate(10000,{
   p1<-sum(sample(deck,1),sample(deck,1))
-#p2<-sum(sample(deck,1),sample(deck,1))
+
   blackjack <-21
   winners<-p1 ==blackjack })
 
@@ -393,7 +382,7 @@ deck<-c(rep(2:10,4),rep(10,12),rep(11,4))
 
 results<-replicate(10000,{
   p1<-sum(sample(deck,1),sample(deck,1))
-#p2<-sum(sample(deck,1),sample(deck,1))
+  
   blackjack <-19
   winners<-p1 ==blackjack })
 
@@ -404,34 +393,37 @@ results<-replicate(10000,{
 5. Suppose the proportion of M&Ms by color is: 14% yellow, 13% Red, 20% Orange, 12% Brown, 20% Green, and 21% Blue. Also, suppose that you buy a bag of M&Ms with 30 pieces in it. Estimate the probability of obtaining at least 9 Blue M&Ms and at least 6 Orange M&Ms in the bag.
 
 ```{r}
-colors<-c("yellow","red","orange","brown","green","blue")
+snackBag<- replicate(10000,{
+  colors<-c("yellow","red","orange","brown","green","blue")
 probability<-c(.14,.13,.2,.12,.2,.21)
 
-snackBag<-replicate(100000,{
-  pickedMs<-sample(colors,30,replace = TRUE) #this has 30 randomly selected M&Ms
+trials <-sample(x=colors,30,prob=probability,replace=TRUE)
 
-#We need to know if there are  at least 9 blue and 6 orange
-targetMs<-sum(pickedMs=="blue") >= 9 & sum(pickedMs =="orange")>=6
+results<-sum(trials=="blue")>8 & sum(trials== "orange")>5})
 
-#saving the bags that actually made the cut the ones that have the correct ammount
-targetMs
-  
-})
-#finding probability 
 mean(snackBag)
-
-
 
 ```
 
 6. Deathrolling in World of Warcraft works as follows: Player 1 tosses a 1000 sided die. Say they get $x_{1}$. Then player 2 tosses a die with $x_{1}$ sides on it. Say they get $x_{2}$. Player 1 tosses a die with $x_{2}$ sides on it. This pattern continues until a player rolls a 1. The player who loses is the player who rolls a 1. Estimate via simulation the probability a 1 will be rolled on the 4th roll in deathroll.
 
 ```{r}
+deathrool<-replicate(100000,{
+  y=TRUE
+  rollUno<-sample(1:1000,1,replace=TRUE)
+  rollDos<-ifelse(rollUno==1, FALSE,sample(1:rollUno,1,replace=TRUE))
+  rollTres<-ifelse(rollDos==1,FALSE,sample(1:rollDos,1,replace=TRUE))
+  rollQuatro<-ifelse(rollTres==1,FALSE,sample(1:rollTres,1,replace=TRUE))
+  y<-rollQuatro==1
+  y
+  
+})
 
-
+table(deathrool)
+mean(deathrool)
 
 ```
-
+Teacher's Advice
 
 x<-c(1,2,3)
 y <- ifelse( if, true, false)
