@@ -1,0 +1,400 @@
+---
+title: "Chapter 2-Probability"
+output:
+  word_document: default
+  html_document: null
+---
+## Section 2.3 Conditional probability and independence
+
+In this chapter we learn that we can update probabilities of an event happening if we know that certain events are observed.  The updated probability of event $A$ after we learn that event $B$ has occurred is the conditional probability of $A$ given $B$.
+
+Example:  
+
+Suppose that we are given 20 tulip bulbs that are very similar in appearance and told that 8 tulips will bloom early, 12 will bloom late, 13 will be red, and 7 will be yellow.  The following table summarizes information about the tulips:
+
+```{r table1, echo=FALSE,message=FALSE,warning=FALSE}
+tabl <- "
+|-----|-----|-----|-----|
+|-----|Early|Late |Total|
+|-----|-----|-----|-----|
+| Red | 5   | 8   | 13  | 
+|-----|-----|-----|-----|
+|Yelow|  3  | 4   |   7 | 
+|-----|-----|-----|-----|
+|Total|  8  | 12  |  20 |
+|-----|-----|-----|-----|
+"
+cat(tabl) 
+```
+
+
+<https://media.csuchico.edu/media/Math+350+Section+2.3+Tulips/1_pfm9r16q>
+
+If one tulip bulb is selected at random, what is the probability that it will produce a red tulip?
+```{r}
+
+
+```
+
+Suppose that, under close examination, we know that it will be an early bulb.  What is the probability that, given we have an early bulb, it is a red tulip?
+
+```{r}
+
+
+```
+
+
+### Definition 2.17
+Let $A$ and $B$ be events in the sample space $S$, with $P(B)\neq 0$. The **conditional probability of $A$ given $B$* is
+\[
+P\left(A|B\right)=\frac{P\left(A\bigcap B\right)}{P\left(B\right)}
+\]
+\noindent This probability is easily seen in a Venn diagram.
+
+<https://media.csuchico.edu/media/Math+350+Chapter+2.3+Conditional+Venn/1_bx0j6ce7>
+
+
+#### You try it
+Suppose that $P\left(A\right)$=.7, $P\left(B\right)=.5$, and $P\left(A\bigcap B\right)=.2$.  Draw a Venn diagram and find  $P\left(A|B\right)$
+
+
+Use **algebra** to determine the following equalities:
+\[
+P(A\cap B)=
+\]
+or
+\[
+P(A\cap B)=
+\]
+
+
+#### You try it:
+
+Find $P(A\cap B)$ if $P(A)=0.2$, $P(B)=0.4$, and $P(A|B)+P(B|A)=0.75$.
+
+
+
+#### You try it:
+
+Suppose events $A$ and $B$ are such that $P(A\cap B)=0.1$ and $P((A\cup)B)^{c})=0.3$. If $P(A)=0.2$, what does $P[(A\cap B)|(A\cup B)^c]$ equal?
+
+
+
+
+## Section 2.3.1 Independent Events
+
+<https://media.csuchico.edu/media/Math+350+Chapter+2.3+Independence+Definition/1_dwa7puc4>
+
+In statistics we talk about independence a lot. If two events, A and B, are independent then knowing the outcome of B does not tell us any information about event A.  Therefore, if A and B are independent events, then
+\[
+P(A|B)=
+\]
+and 
+\[
+P(B|A)=
+\]
+
+If learning the probability that B has occurred does not change the probability of A, then we say A and B are *independent*.
+
+
+Can you think of two events that are independent?
+
+
+If two events $A$ and $B$ are independent then we can write $P(A\cap B)$ as:
+\[
+P(A\cap B)=
+\]
+
+
+#### Example:
+
+Suppose that two machines 1 and 2 in a factory are operated independently of each other.  Let $A$ be the event that machine 1 will become inoperative during a given 8-hour period; let $B$ be the event that the machine 2 will become inoperative during the same period; and suppose that P($A$)=1/3 and P($B$)=1/4.  We shall determine the probability that at least one of the machines will become inoperative during the given period.
+
+<https://media.csuchico.edu/media/Math+350+Chapter+2.3+Factory+Machines/1_1t0es2c3>
+
+First calculate P($A\bigcap B$):
+
+Now, recall that\\
+\[
+P(A\cup B)=P(A)+P(B)-P(A\cap B)=\frac{1}{3}+\frac{1}{4}-\frac{1}{3}\frac{1}{4}=0.5
+\]
+
+### Example 
+School board officials are debating whether to require all high school seniors to take a proficiency exam before graduating. A student passing all three parts (math, language, and general) would be awarded a diploma; otherwise, they would receive only a certificate of attendance. A practice test given to this year's ninety-five hundred seniors resulted in the following failures:
+Math-3325
+Language-1900
+General knowledge-1425
+
+If ``Student fails Math'', ``Student fails language'', and ``Student fails general knowledge'' are independent events, what proportion of next year's seniors can be expected to fail to qualify for a diploma? Does independence seem reasonable here?
+
+<https://media.csuchico.edu/media/Math+350+Chapter+2.3+Diploma/1_hsuxas6w>
+
+P(diploma)=
+P(No diploma)=
+
+### Example
+In a certain nation, statistics show that only two out of ten children born in the early 80s reached the age of 21. If the same mortality rate is operative over the next generation, how many children does a woman need to bear if she wants to have at least a 75% probability that at least one of her offspring survives to adulthood?
+
+<https://media.csuchico.edu/media/Math+350+Section+2.3+Number+Children/1_pb6j0h8r>
+
+P(at least 1)=1-P(all die)=$1-0.8^{k}>0.75\rightarrow k\approx 7$
+
+### You try it
+Suppose that $P(A\bigcap B)=.2$, $P(A)=.6$, and $P(B)=.5$.
+
+1.  Are $A$ and $B$ mutually exclusive?
+
+
+2.  Are $A$ and $B$ independent?
+
+
+
+3. Find $P(A^{C}\cup B^{C}$).
+
+
+#### You try it:
+Myra and Carlos are summer interns working as proofreaders for a local newspaper.  Based on aptitude tests, Myra has a 50% chance of spotting a hyphenation error, while Carlos picks up on that same kind of mistake 80% of the time. Suppose the copy they are proofing contains a hyphenation error.  What is the probability it goes undetected?
+
+Let $A$ and $B$ be the events that Myra and Carlos, respectively, catch the mistake.  By assumption, $P(A)=.5$ and $P(B)=.8$.  What we are looking for is the probability of the complement of a union.  That is,
+$P$(Error goes undetected)=1-P(error detected)
+
+
+
+
+## Simulating conditional probability
+
+Simulating conditional probability is challenging. We will simulate the conditional probabilities by simulating $P(A\cap B)$ and either $P(A)$ or $P(B)$. We will then divide to get the conditional distribution of $P(B|A)$.
+
+After reviewing example 2.24, try the following problem.
+
+#### Example 
+Two dice are rolled. Estimate the conditional probability that the sum of the dice is at most 4 given that one of the die is a 2. Let $A$ be that event that the sum of the dice is at most 4 and let $B$ be the event that one of the die is a 2. Thus,we want $P(A|B)$
+
+```{r}
+##Simulate event B
+library(dplyr)
+
+eventB<-replicate(10000,{
+  dieroll<-sample(1:6,2,replace=TRUE)
+  mean(2 %in% dieroll)
+})
+
+probB<-mean(eventB)
+
+eventAB<-replicate(10000,{
+  dieroll<-sample(1:6,2,replace=TRUE)
+  (sum(dieroll<=4) &&(2 %in% dieroll))
+})
+
+probAB<-mean(eventAB)
+(cond_prob<-probAB/probB)
+```
+
+Now, compute the probability by hand. Does your calculation match what is given above?
+
+
+
+## Bayes' Rule and conditioning
+
+Suppose that we are interested in which of several events $A_{1}, A_{2},\dots,A_{k}$ will occur and that we will get to observe some other event $B$. If $P(B|A_{i})$ is available for each $i$, then Bayes' theorem is a useful formula for computing the conditional probabilities of the $A_{i}$ events given $B$.
+
+### Theorem 2.3 Law of Total Probability
+
+Suppose that the events $A_{1},A_{2},\dots,A_{k}$ form a partition of the space $S$ and $P(A_{j})>0$ for $j=1,\dots,k$.  Then, for every event $B$ in $S$,
+
+\[
+P(B)=\sum^{k}_{j=1}P(A_{j})P(B|A_{j})
+\]
+
+<https://media.csuchico.edu/media/Math+350+Law+of+Total+Probability/1_vjnrsbr8>
+
+#### Example
+The percentage of voters classified as Liberals in three different election districts are divided as follows: 21 % in the first district; 45% in the second district, and in the third district 75%. If a district is selected **at random** and a voter is selected at random from that district, what is the probability that she will be a Liberal?
+
+<https://media.csuchico.edu/media/Math+350+Example+Law+Total+Prob/1_fdfefa65>
+
+#### You try it
+In a certain study it was discovered that 15% of the participants were classified as *heavy smokers*, 30% as *light smokers*, and 55% as *nonsmokers*. In the five year study, 20% of the heavy smokers died, 10% of the light smokers died, and 4% of the nonsmokers died. What is the probability of death for this study?
+
+
+
+
+## Bayes' Rule
+
+<https://media.csuchico.edu/media/Math+350+Bayes+Rule/1_sbq45wu5>
+
+We will derive Bayes' Theorem in this section.
+
+Suppose that we have $A_{1}, A_{2}, A_{3}$ which form a partition of the sample space. There is another event we will call $B$ that is contained in the same sample space. Go ahead and draw a venn diagram. 
+
+Now suppose that we know the values of $P(A_{j}\cap B)$ and $P(A_{j})$ for all $j$. 
+
+We want to calculate $P(B|A_{1})$. Given the formula we learned in this chapter for conditional probability, we can rewrite $P(B|A_{1})$ as:
+\[
+P(B|A_{1})=
+\]
+
+Remember, we don't know $P(B)$ but we do know $P(A_{j}\cap B)$ and $P(A_{j})$ so we can rewrite the denominator of the above formula giving us:
+
+\[
+P(B|A_{1})=
+\]
+
+Now we now the denominator. Let's deal with the numerator. How can we rewrite the numerator so that we can use the information that we are given? Again, we can use the formulas for conditional probability. Thus, we have
+
+\[
+P(B|A_{1})=
+\]
+
+and we can now calculate $P(B|A_{1})$ because we know all the information on the right-hand side of the equation.
+
+
+One can see from what we just did that Bayes' Rule is a simple statement about conditional probabilities. This simple rule forms the basis for Bayesian inference.
+
+## Theorem 2.4 Bayes' Rule
+
+Of course, we can extend this rule for any number of $A_{i}$'s.
+
+Let $A_{1},A_{2}, A_{3},...,A_{k}$ be a partition of the sample space $S$ and let $B$ be an event. Then
+\[
+P(A_{j}|B)=\frac{P(B|A_{j})P(A_{j})}{\sum^{k}_{i=1}P(B|A_{i})P(A_{i})}
+\]
+
+#### Example
+Suppose that you are walking down the street and notice that the Department of Public Health is giving a free medical test for a certain disease.  The test is 90 percent reliable in the following sense:  If a person has the disease, there is a probability of .9 that the test will yield a positive response; whereas, if a person does not have the disease, there is a probability of .1 that the test will give a positive response.
+Data indicate that your chances of having the disease  are only 1 in 10,000.  However, since the test costs you nothing, and is fast and harmless, you decide to stop and take the test.  A few days later you learn that you had a positive response to the test.  Now, what is the probability that you have the disease?
+
+<https://media.csuchico.edu/media/Math+350+Bayes+Example+Disease/1_46whq27k>
+
+$P(D_{+}|T_{+})=\frac{0.9*.0001}{0.9*.0001+0.1*0.9999}=0.0009$
+
+
+#### You try it
+
+At a hospital's emergency room, patients are classified and 20\% of them are critical, 30\% are serious,
+and 50\% are stable.  Of the critical ones, 30\% die; of the serious, 10\% die; and the stable, 1\% die.  Given that a patient dies,
+what is the conditional probability that the patient was classified as critical.
+
+
+
+#### You try it
+
+The percentage of voters classes as Liberals in three different election districts are divided as follows:
+In the first district, 21%; in the second district, 45%; and in the third district, 75%.  If a district is selected at random and a voter is selected at random from that district, what is the probability that she will be a Liberal?
+
+
+
+
+#### You try it
+
+In a certain city, 30% of the people are Conservatives, 50% are Liberals, and 20% are Independents.
+Records show that in a particular election, 65% of the Conservatives voted, 82% of the Liberals voted, and 50% of the Independents voted.
+If a person in the city is selected at random and it is learned that she did not vote in the last election, what is the probability that she is a liberal?
+
+
+
+#### End of Chapter Problems
+
+1. A hat contains six slips of paper with the numbers 1 through 6 written on them. Two slips of paper are drawn from the hat without replacement and the sum of the numbers is computed.
+
+a. What is the probability that the sum of the numbers is exactly 10?
+
+```{r}
+
+```
+
+
+b. What is the probability that the sum of the numbers is at least 10?
+```{r}
+
+```
+
+
+
+c. What is the probability that the sum of the numbers is exactly 10, given that it is at least 10?
+
+```{r}
+
+```
+
+
+2. Roll two dice, one white and one red. Consider these events:
+
+A: The sum is 7
+B: The white die is odd
+C: The red die has a larger number showing than the white
+D: The dice match (doubles)
+
+a. Which pair(s) of events are disjoint?
+
+
+
+b. Which pair(s) are independent?
+
+ 
+
+c. Which pair(s) are neither disjoint nor independent?
+
+
+3. Let $A$ and $B$ be events. Show that $P(A\cup B|B)=1.
+
+
+
+4. Suppose a die is tossed three times. Let $A$ be the event *the first toss is a 5*. Let $B$ be the event *the first toss is the largest number rolled* (the largerst can be a tie). Determine via simulation whether $A$ or $B$ are independent.
+
+```{r}
+die<-1:6
+toss<-samples(die,3,replace=TRUE)
+
+ab_intersect<- 
+
+0.1174
+0.06969028
+
+######
+intersection<-
+
+probability of A <-
+probability of B <-
+  
+x<-c(2,7,3,1,2,5)
+which.max(x)
+
+
+```
+
+
+
+5. Bob Ross was a painter with a PBS television show ``The Joy of Painting'' that ran for 11 years.
+
+a. 91% of Bob's paintings contain a tree, 85% contain two or more trees. What is the probability that he painted a second tree, given that he painted a tree?
+
+
+b. 18% of Bob's paintings contain a cabin. Given that he painted a cabin, there is a 35% chance the cabin is on a lake. What is the probability that a Bob Ross painting contains both a cabin and a lake?
+
+
+
+6. Let $A$ and $B$ be two events such that $P((A\cupB)^{c})=0.6$ and $P(A\cap B)=0.1$. Let $E$ be the event that either $A$ or $B$ but not both will occur. Find $(E|A\cup B)$.
+
+
+
+7. Suppose events $A$ and $B$ are such that $P(A\cap B)=0.1$ and $P((A\cup B)^{c})=0.3$. If $P(A)=0.2$, what does $P[(A\cap B)|(A\cup B)^{c}]$ equal? Hint: Draw a Venn diagram.
+
+
+
+8. Based on pretrial speculation, the probability that a jury returns a guilty verdict in a certain high-profile murder case is thought to be 15% if the defense can discredit the police department and 80% if they cannot. Veteran court observers believe that the skilled defense attorneys have a 70% chance of convincing the jury that the police either contaminated or planted some of the key evidence. What is the probability that the jury returns a guilty verdict?
+
+
+
+9. A dashboard warning light is supposed to flash red if a car's oil pressure is too low. On a certain model, the probability of the light flashing when it should is 0.99, 2% of the time though, it flashes for no apparent reason. If there is a 10% chance that the oil pressure really is low, what is the probability that a driver needs to be concerned if the warning light goes on?
+
+
+
+10. Spike is not a terribly bright student. His chances of passing chemistry are 0.35; mathematics, 0.40; and both 0.12. Are the events ``Spike passes chemistry'' and ``Spike passes mathematics'' independent? What is the probability that he fails both subjects?
+
+
+
+
+11. Suppose that two cards are drawn simultaneously from a standard 52-card poker deck. Let $A$ be the event that both are either a jack, queen, king, or ace of hearts and let $B$ be the event that both are aces. Are $A$ and $B$ independent?
+
+
