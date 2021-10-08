@@ -1,8 +1,8 @@
 ---
 title: "Chapter 2-Probability"
 output:
-  word_document: default
-  html_document: null
+  word_document: null
+  html_document: default
 ---
 ## Section 2.4 Counting Arguements
 
@@ -188,7 +188,7 @@ If four dice are rolled, what is the probability that each of the four numbers t
 
 ```{r}
 
-
+heads<-choose(9,3)
 
 ```
 
@@ -196,7 +196,7 @@ If four dice are rolled, what is the probability that each of the four numbers t
 
 ```{r}
 
-
+teams<-choose(9,4)
 ```
 
 3. Six standard six-sided dice are rolled.
@@ -204,7 +204,7 @@ If four dice are rolled, what is the probability that each of the four numbers t
 a. How many outcomes are there?
 
 ```{r}
-
+outcomes<-6^6
 ```
 
 
@@ -213,14 +213,15 @@ b. How many outcomes are there such that all of the dice are different numbers?
 
 ```{r}
 
-
+outcomesB<-factorial(6)   #6!
 ```
 
 
 c. What is the probability that you obtain six different numbers when you roll six dice?
 
 ```{r}
-
+rolls <-factorial(6)
+outcomesC<-(rolls/(6^6))
 
 
 ```
@@ -228,7 +229,8 @@ c. What is the probability that you obtain six different numbers when you roll s
 4. A committee of fifty politicians is to be chosen from among our one hundred US Senators. If the selection is done at random, what is the probability that each state will be represented?
 
 ```{r}
-
+politicians<-choose(100,50)
+(poliProb<-(2/politicians))
 
 
 ```
@@ -237,7 +239,10 @@ c. What is the probability that you obtain six different numbers when you roll s
 5. A box contains 24 light bulbs, of which two are defective. If a person selects 10 bulbs at random, without replacement, what is the probability that both defective bulbs will be selected?
 
 ```{r}
-
+defective<-choose(2,2) #
+diffBulbs<-choose(22,8) #
+totalBulbs<-(defective +diffBulbs)  #
+probaBulbs<-(totalBulbs/ choose(24,10))  #
 
 ```
 
@@ -245,7 +250,12 @@ c. What is the probability that you obtain six different numbers when you roll s
 6. Suppose that two committees are to be formed in an organization that has 300 members.  If one committee is to have five members and the other committee is to have eight members, in how many different ways can these committees be selected?  Assume that you can only serve on one committee, not both.
 
 ```{r}
-
+#two committess possible for 300 members
+#c1 = 5 c2 = 8
+first<-c(300,5)
+second<-c(295,8)
+result<-first*second
+#choose(300,5)*choose(295,8)
 
 
 ```
@@ -253,6 +263,7 @@ c. What is the probability that you obtain six different numbers when you roll s
 7. In how many ways can five persons line up to get on a bus? 
 
 ```{r}
+bus_line<-factorial(5)
 
 
 
@@ -262,13 +273,14 @@ c. What is the probability that you obtain six different numbers when you roll s
 
 ```{r}
 
-
+bus_line<-factorial(5) -factorial(4)
 
 ```
 
 9. At the end of the day, a bakery gives everything that is unsold to food banks for the needy. It has 12 apple pies left at the end of a given day, in how many different ways can it distribute these pies among six food banks for the needy? Assume it is possible for any bakery to get between 0 and 12 pies.
 
 ```{r}
+pies<-6^12
 
 
 
@@ -277,16 +289,25 @@ c. What is the probability that you obtain six different numbers when you roll s
 10. Five fair dice are rolled. What is the probability that the faces showing constitute a "full house" (three faces show one number and 2 faces show a second number). Solve this using the formulas and also via simulation.
 
 ```{r}
+results<- replicate(10000,{
+  diceRolls<-sample(1:6,5, replace =TRUE)
+  sortRolls<-sort(diceRolls)
+  full_house<-( sortRolls[1] == sortRolls[2] & sortRolls[1]==sortRolls[3] & sortRolls[4] == sortRolls[5] | sortRolls[1] == sortRolls[2] & sortRolls[3] == sortRolls[4] & sortRolls[4]== sortRolls[5]) & length(unique(sortRolls)==2)
 
 
+})
 
+mean(results)
 ```
 
 11. A coke hand in bridge is one where none of the thirteen cards is an ace or is higher than a 9. What is the probability of being dealt a coke hand? Use formulas and also simulation to solve this problem.
 
 ```{r}
+deck<-52         #This is the deck of cards.
+bridgeHand<-sample(deck,13)   #This is sampling 13 cards.
+          #This calculates the probability
 
-
+(replace=false)
 
 ```
 
