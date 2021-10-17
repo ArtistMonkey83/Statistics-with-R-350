@@ -188,7 +188,7 @@ If four dice are rolled, what is the probability that each of the four numbers t
 
 ```{r}
 
-heads<-choose(9,3)
+heads<-choose(10,4)
 
 ```
 
@@ -196,7 +196,7 @@ heads<-choose(9,3)
 
 ```{r}
 
-teams<-choose(9,4)
+results<-((10*9*8*7*6)/(5*4*3*2*1))
 ```
 
 3. Six standard six-sided dice are rolled.
@@ -242,7 +242,7 @@ politicians<-choose(100,50)
 defective<-choose(2,2) #
 diffBulbs<-choose(22,8) #
 totalBulbs<-(defective +diffBulbs)  #
-probaBulbs<-(totalBulbs/ choose(24,10))  #
+(probaBulbs<-(totalBulbs/ choose(24,10)))  #
 
 ```
 
@@ -254,8 +254,8 @@ probaBulbs<-(totalBulbs/ choose(24,10))  #
 #c1 = 5 c2 = 8
 first<-c(300,5)
 second<-c(295,8)
-result<-first*second
-#choose(300,5)*choose(295,8)
+(result<-first*second)
+#result<-choose(300,5)*choose(295,8) one line
 
 
 ```
@@ -263,7 +263,7 @@ result<-first*second
 7. In how many ways can five persons line up to get on a bus? 
 
 ```{r}
-bus_line<-factorial(5)
+(bus_line<-factorial(5))
 
 
 
@@ -273,14 +273,15 @@ bus_line<-factorial(5)
 
 ```{r}
 
-bus_line<-factorial(5) -factorial(4)
+twoPeople<- factorial(2)*factorial(4)
 
+results<-120 - twoPeople
 ```
 
 9. At the end of the day, a bakery gives everything that is unsold to food banks for the needy. It has 12 apple pies left at the end of a given day, in how many different ways can it distribute these pies among six food banks for the needy? Assume it is possible for any bakery to get between 0 and 12 pies.
 
 ```{r}
-pies<-6^12
+(pies<-6^12)
 
 
 
@@ -289,6 +290,8 @@ pies<-6^12
 10. Five fair dice are rolled. What is the probability that the faces showing constitute a "full house" (three faces show one number and 2 faces show a second number). Solve this using the formulas and also via simulation.
 
 ```{r}
+
+#simulation
 results<- replicate(10000,{
   diceRolls<-sample(1:6,5, replace =TRUE)
   sortRolls<-sort(diceRolls)
@@ -298,16 +301,33 @@ results<- replicate(10000,{
 })
 
 mean(results)
+
+
+
+#formulas
+fullhouse<- 30*10 
+totalPossibilities<-6^5
+fullhouseProb<- fullhouse / totalPossibilities
 ```
 
 11. A coke hand in bridge is one where none of the thirteen cards is an ace or is higher than a 9. What is the probability of being dealt a coke hand? Use formulas and also simulation to solve this problem.
 
 ```{r}
-deck<-52         #This is the deck of cards.
-bridgeHand<-sample(deck,13)   #This is sampling 13 cards.
-          #This calculates the probability
+#0.00059
 
-(replace=false)
+#Simulation
+bridgeResults<- replicate(10000,{
+  deck<-c(rep(1:10,4),rep(10,12),rep(11,4))
+  deal13Cards<-sample(deck,13)
+  dealSum<-sum (deal13Cards>=10)
+  pepsiHand<-dealSum < 1
+  
+  
+})
+(mean(bridgeResults))
+
+#formular
+choose(32,13)/choose(52,13)
 
 ```
 
