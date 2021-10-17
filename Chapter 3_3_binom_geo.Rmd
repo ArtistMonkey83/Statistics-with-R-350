@@ -1,0 +1,211 @@
+---
+title: "Chapter 3 Discrete Random Variables"
+output:
+  word_document: default
+  html_document: default
+---
+
+
+## Section 3.3 Binomial and Geometric Random Variables
+
+The simplest type of experiment is one in which there are only two outcomes, generically called a success ($X=1$) or a failure ($X=0)$.  If $X$ is equal to the outcome from such an experiment, then $X$ has this type of distribution which is what we called the Bernoulli distribution.  If $n$ independent random variables $X_{1},...,X_{n}$ all have the same Bernoulli distribution, then their sum is equal to the number of $X_{i}$'s which equal 1 and the distribution of the sum is the binomial distribution.  Thus, the binomial distribution is a sequence of Bernoulli trials.
+
+#### Example:  
+Suppose that the probability of germination of a beet seed is .8 and the germination of a seed is called a success.  If we plant 10 seeds and can assume that the germination of one seed is independent of the germination of another seed, this would correspond to 10 Bernoulli trials with $p$=.8.
+
+### Bernoulli Distribution:  
+A Bernoulli trial just means that an experiment has only 2 outcomes (success/failure, live/die, true/false, yes/no, etc).  We shall say that whatever we consider a ``success'' shall have the value of 1 and whatever we consider a ``failure'' will have the value 0.  The probability function for a Bernoulli distribution is
+\[
+P(X=x)=p^{x}\left(1-p\right)^(1-x)
+\]
+Where x=0,1. 
+
+### The Binomial Distribution:  
+A series of $n$ Bernoulli trials results in the Binomial distribution with parameters $n$ and $p$.  $X$ represents the number of ``success''.  The binomial distribution is a discrete distribution with the following probability function (p.f.):
+\[
+P(X=k)={n\choose k} p^{k}q^{n-k}
+\]
+for $k=0,1,...,n$ and 0 otherwise.
+
+$n$ represents the number of trials so clearly $n$ is a positive number, $p$ is the probability of a success and thus $0\leq p\leq 1$.  Trials must be independent from each other meaning that the outcome of one trial does not affect the outcome of other trials.
+
+In R, we can use the function `dbinom(x,size=n,prob=p)` to compute binomial probabilities or if we are interested in $P(X\leq x)$ we can use `pbinom(x,size=n,prob=p)`. 
+
+#### Example:  
+A coin for which the probability of heads is .6 is tossed nine times.  Find the probability of obtaining an even number of heads.
+
+<https://media.csuchico.edu/media/Math+350+Chapter+3.3+Probability+Heads/1_7ccpx95t>
+
+```{r}
+x<-seq(0,9,by=2)
+sum(dbinom(x,9,prob=0.6))
+```
+
+
+#### You try it:  
+A recent national study showed that approximately 45\% of college students binge drink.  Let $X$ equal the number of students in a random sample of size $n=12$ who binge drink.  Find the probability that
+
+a. $X$ is at most 2.
+
+```{r}
+pbinom(2,12,0.45)
+#dbinom and sum them all up!
+
+```
+
+b. $X$ is at least 1.
+
+```{r}
+1-dbinom(0,12,0.45)
+
+x<-1:12
+sum(dbinom(x,12,0.45))
+```
+
+c. Use simulation to obtain the mean and variance of $X$. The function `rbinom(10000,n,p)` will generate 10000 random values from a binomial distribution.
+
+```{r}
+x<-1:12
+sum(dbinom(10000,12,0.45))
+
+x<-rbinom(10000,12,0.45)
+x[1:20]
+hist(x)
+
+mean(x)
+```
+
+
+#### You try it:
+A certain electric system contains 10 components.  Suppose that the probability that each individual will fail is .2 and that the components fail independently of each other.  Given that at least one of the components failed, what is the probability that at least two of the components have failed?
+
+
+```{r}
+(1-pbinom(1,10,0.2))/(1-pbinom(0,10,0.2))
+```
+
+
+## Theorem 3.4
+
+Let $X$ be a binomial random variable with $n$ trials and probability of success $p$. Then
+\[
+E[X]=np
+\]
+
+and
+\[
+Var(X)=np(1-p)
+\]
+
+
+## Section 3.3.2 The Geometric Distribution
+
+### Definition 3.22
+Given a series of independent Bernoulli trials, we are accustomed to thinking of $n$ and $p$ as fixed, and $x$ is considered the number of successes for a binomial distribution.  Suppose that the problem is turned around though, and the question is asked, how many trials will be required in order to achieve the first success?  Put this way, $n$ is the random variable and $x$ is fixed.  The first success will occur on the very first trial with probability $p$.
+How about the second trial?
+The third trial?
+
+A random variable $X$ is said to be a *geomtric random variable* with parameter $p$ if
+\[
+P(X=x)=(1-p)^{x}p
+\]
+where $x=0,1,2,...$
+
+We define $X$ to be the **number of failures before the first success in a Bernoulli process with probability of success p*.
+
+The function `dgeom`, `pgeom` and `rgeom` are available in R when working with the geometric distribution.
+
+#### Example
+Suppose that the probability of engine malfunction during any 1-hour period is $p$=.02.  Find the probability that a given engine will survive 2 hours.
+
+```{r}
+dgeom(1,.02) #fails first hour
+
+```
+
+Use simulation to compute the above probability.
+
+```{r}
+x<-rgeom(10000,0.02)
+x[1:50]
+mean(x=2)
+
+
+```
+
+### Theorem 3.6
+Let $X$ be a geometric random variable with probability of success $p$. Then 
+\[
+E(X)=\frac{1-p}{p}
+\]
+and
+\[
+Var(X)=\frac{1-p}{p^{2}}
+\]
+
+#### Example 3.25
+Professional basketball player Steve Nash was a 90% free throw shooter over his career. If Steve Nash starts shooting free throws, how many would he expect to make before missing one? What is the probability that he could make 20 in a row? Answer this question using the formulas and also simulation.
+
+```{r}
+pmissed<-0.1 
+
+(Ex<-0.9/0.1)
+
+freefthrows<-rgeom(10000,0.1)
+mean(freefthrows)
+freefthrows[1:20]
+
+0.9^20 #20 in a row free throws.
+
+```
+
+#### End of Section Problems
+
+1. Suppose you take a 20 question multiple choice test, where each question has four choices. You guess randomly on each question.
+
+a. What is your expected score?
+
+```{r}
+Ex<-20 *.25
+```
+
+
+b. What is the probability you get 10 or more questions correct? Use both simulation and the formulas to solve.
+
+```{r}
+1-pbinom(9,20,0.25)
+
+x<-1:20
+sum(dbinom(x,20,0.25))
+
+
+correct<-rbinom(10000,20,0.25)
+mean(correct>9)
+```
+
+2. Steph Curry is a 91% free throw shooter. He decides to shoot free throws until his first miss. What is the probability that he shoots exactly 20 free throws (including the one he misses)?
+
+```{r}
+
+```
+
+
+3. Consider the World Series which is played every fall between 2 major league baseball teams. The series can go for 7 games and the first team to win four games wins the series. Thus, the possible number of games played in the series are between 4 and 7 inclusive. From 1950 to 2008, there were 12 series that went 4 games, 10 that went 5 games, 12 that went 6 games, and 24 that went 7 games for a total of 58 series (there was no series played in 1994). 
+
+Assuming that each World Series game is an independent event and that the probability of either team's winning any particular contest is 0.5, find the probability of each series length. How well does the binomial model fit the data in your opinion? Do the assumptions seem reasonable?
+
+```{r}
+
+
+```
+
+
+4. A couple decides to have children until a daughter is born. Assume the probability of a daughter is 0.5. What is the expected number of children of this couple? Use the formula as well as simulation for this problem.
+
+```{r}
+
+```
+
+
+
+

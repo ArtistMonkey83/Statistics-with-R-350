@@ -1,0 +1,196 @@
+---
+title: "Chapter 3 Discrete Random Variables"
+output:
+  #word_document: default
+  html_document: default
+---
+
+## 3.2 Expected Value
+
+Probability mass functions provide a global overview of a random variable's behavior.  Many times we don't need to know everything about a variable.  We often want to summarize the variable.  One feature of a distribution which we might be interested in is the central tendency of a variable.  One measure of central tendency is the *expected value* or *mean* of the observation.  The term expected value and mean can be used interchangeably.
+
+### Definition 3.9
+For a discrete random variable $X$ with a pmf $p$, the *expected value* of $X$ is 
+\[
+E[X]=\sum_{x}xp(x)
+\]
+where the sum is taken over all possible values of the random variable $X$.
+
+#### Example
+Consider the game of roulette.  After bets are placed, the wheel is spun and the winning number is declared.  The numbers range from 00,0,1,2,...,36.  We will assume that these 38 numbers are equally likely.  Suppose that we bet\$1 on ``odds''.  If $X$ denotes our winnings, then $X$ takes on the value of 1 if an odd number occurs, and -1 otherwise.  We can calculate the probability of $X=1$ and the probability of $X=-1$.
+Since the odds of winning are less than the odds of losing, we would expect to lose more than we win the game if we were to play this game multiple times.  The expected value of $X$ corresponds to how much you would expect to lose in the long run.
+
+<https://media.csuchico.edu/media/Math+350+Section+3.2+Rollette/1_30huabg0>
+
+Using simulation, compute the expected value of roulette.
+
+```{r}
+roulette<-replicate
+
+prob<-c (20/38,18/38)
+results<-sample(c(-1))
+
+
+```
+
+
+#### You try it
+A fair die is rolled three times.  Let $X$ denote the number of different faces showing, $X=1,2,3$. Find $E(X)$. Use the formula as well as simulation.
+
+
+
+```{r}
+
+sameResults<-replicate(10000,{
+  
+three_tosses<-sample(1:6,3,replace=TRUE)
+
+allSame <- length(unique(three_tosses))==1
+allSame
+  })
+mean(sameResults)
+
+
+diffResults<-replicate(10000,{
+  
+three_tosses<-sample(1:6,3,replace=TRUE)
+
+allSame <- length(unique(three_tosses))==2
+allSame
+  })
+mean(diffResults)
+
+
+sameResults<-replicate(10000,{
+  
+three_tosses<-sample(1:6,3,replace=TRUE)
+
+allSame <- length(unique(three_tosses))==3
+allSame
+  })
+mean(sameResults)
+
+probResults<-c(mean(diffResults),mean(sameResults))
+X<-c(1,2,3)
+
+(E_X<-sum(X*probResults))
+```
+
+#### End of Section Problems
+
+1. Suppose that a hat contains slips of papers containing the numbers 1,2, and 3. Two slips of paper are drawn without replacement. Calculate the expected value of the product of the numbers on the slips of paper. Confirm your results using simulation.
+
+```{r}
+hat<-1:3
+
+results<-replicate(10000,{
+  
+hatNumbers<-sample(hat,2)#*sample(hat,1) would get it done in one line
+
+hat_product<-hatNumbers[1]*hatNumbers[2]
+
+})
+
+table(results)/10000
+prob_x<-table(results)/10000
+x<-c(2,3,6)
+
+sum(X*prob_x)
+
+
+```
+
+2. In the summer of 2020, the U.S. was considering *pooled testing* of COVID-19. This problem explores the math behind pooled testing. Since the availability of tests is limited, the testing center proposes the following pooled testing technique:
+
+  1. Two samples are randomly selected and combined. The combined sample is tested.
+  2. If the combined sample tests negative, then both people are assumed negative
+  3. If the combined sample tests positive, then both people need to be retested for the disease.
+  
+Suppose in a certain population, 5 percent of the people being tested for COVID-19 actually have COVID-19. Let $X$ be the total number of tests that are run in order to test two randomly selected people.
+
+
+a.  What is the pmf of $X$?
+
+```{r}
+
+
+```
+
+b. What is the expected value of $X$?
+
+```{r}
+
+expectedValue<-(1* 0.925)+(3*0.0975)
+```
+
+c. Repeat the above but imagine that three samples are combined, and let $Y$ be the total number of tests that are run in order to test three randomly selected people. If the pooled test is positive, then all three people need to be retested individually.
+
+```{r}
+
+
+
+```
+
+d. If your only concern is to minimize the expected number of tests given to the population, which technique would you recommend?
+
+
+
+4. A man buys a racehorse for $20000 and enters it in two races. He plans to sell the horse afterward, hoping to make a profit. If the horse wins both races, its value will jump to \$100,000. If it wins one of the races, it will be worth \$50,000. If the horse loses both races he will only be able to sell the horse for \$10,000. The man believes there is a 20% chance that the horse will win the first race and a 30% chance that the horse will win the second race. Assuming that the two races are indpendent, find the expected profit?
+
+```{r}
+
+
+
+```
+
+5. A roulette wheel has 38 slots and a ball that rolls until it falls into one of the slots, all of which are equally likely. Eighteen slots are black number, eighteen are red numbers, and two are green zeros. If you bet on "red", and the ball lands in a red slot, the casino pays you your bet, otherwise the casino wins your bet.
+
+a. What is the expected value of a dollar bet on red?
+
+```{r}
+
+
+
+
+```
+
+b. Suppose you bet on red, and if you win you 
+"let it ride" and bet $2 on red. What is the expected value of this plan? 
+
+
+```{r}
+
+
+
+```
+
+
+6. To play the Missouri lottery Pick 3, you choose three digits 0-9. Later, the lottery selects three digits at random, and you win if your choices match the lottery values in some way. Here are some possible bets you can play:
+
+Consider the value of your bet to be your expected winnings per dollar bet. What is the expected value for each of the below scenarios? Use simulation to answer the question.
+
+\$1 Straight wins if you correctly guess all three digits, in order. It pays $600.
+
+```{r}
+
+
+
+```
+
+\$1 Front Pair wins if you correctly guess the first two digits. It pays $60.
+
+```{r}
+
+
+
+
+```
+
+
+\$6 6-way combo wins if the three digits are different and you guess all three in any order. It pays $600.
+
+```{r}
+
+
+```
+

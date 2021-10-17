@@ -1,0 +1,129 @@
+---
+title: "Chapter 3 Discrete Random Variables"
+output:
+  word_document: default
+  html_document: default
+---
+
+
+## Functions of random variables
+
+There are many reasons why we might be more interested in looking at the distribution of a **function** of a random variable $X$ than the actual variable $X$. 
+
+The probability mass function of $g(X)$ can be computed as follows. For each $y$, the probability that $g(X)=y$ is given by $\sum p(x)$ where the sum is over all values of $x$ such that $g(x)=y$.
+
+#### Example
+Suppose that $X$ is a binomial random variable with $n=4$ and $p=\frac{2}{3}$. What is the pmf of $Y=2X+1$. 
+
+<https://media.csuchico.edu/media/Math+350+Binomial+Transformation/1_y4wihpgf>
+
+```{r table1, echo=FALSE,message=FALSE,warning=FALSE}
+tabl <- "
+
+|-----|-----|-----|-----|-----|-----|
+| X   |  0  | 1   | 2   | 3   |4    |
+|-----|-----|-----|-----|-----|-----|
+| Y   |  1  | 3   |   5 | 7   |  9  | 
+|-----|-----|-----|-----|-----|-----|
+|P(x) |.012 |.099 | .296|.395 |.198 |
+|-----|-----|-----|-----|-----|-----|
+"
+cat(tabl) 
+
+x<-0:4
+n<-4
+dbinom(x,4,2/3)
+```
+
+#### Theorem 3.7
+Let $X$ be a discrete random variable with probability mass function $p$, and let $g$ be a function. Then 
+\[
+E[g(X)]=\sum g(x)p(x)
+\]
+
+#### Example
+Suppose $X$ is a binomial random variable with $n=10$ and $p=\frac{2}{3}$. What is the expected value of $3X-4$?
+
+<https://media.csuchico.edu/media/Math+350+Binomial+Expected+Value/1_9s7wna7g>
+
+```{r}
+
+
+
+```
+
+
+
+### Theorem 3.8
+For random variables $X$ and $Y$, and constants $a$, $b$, and $c$:
+\[
+E[aX+bY]=aE[X]+bE[Y]
+\]
+\[
+E[c]=c
+\]
+
+
+#### Example
+Repeat the above exercise using Theorem 3.8
+
+$E(Y)=E(3X-4)=3E(X)-4=3*10*(2/3)-4=16$
+
+#### End of Section Problems
+
+1. Let $X$ be a discrete random variable with pmf given by 
+P(X=0)=1/4, P(X=1)=1/2, P(X=2)=1/8, P(X=3)=1/8
+
+a. Find the pmf of $Y=X-1$.
+
+```{r}
+
+
+```
+
+
+b. Find the pmf of $U=X^{2}$.
+
+```{r}
+
+
+```
+
+
+c. Find the pmf of $V=(X-1)^{2}$.
+
+```{r}
+
+
+```
+
+
+2. Let $X$ and $Y$ be random variables such that $E[X]=2$ and $E[Y]=3$.
+
+a. Find $E[4X+5Y]$.
+
+```{r}
+
+
+```
+
+
+b. Find $E[4X-5Y+2]$.
+
+```{r}
+
+
+```
+
+
+3. Marksmanship competition at a certain level requires each contestant to take ten shots with each of two different handguns. Final scores are computed by taking a weighted average of 4 times the number of bull-eyes made with the first gun plus 6 times the number gotten with the second gun. If Bertha has a 30% chance of hitting the bull's-eye with each shot from the first gun and a 40% chance with each shot from the second gun, what is her expected score?
+
+```{r}
+
+
+
+```
+
+
+
+
